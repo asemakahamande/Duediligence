@@ -3,9 +3,11 @@
 
 @theme {
   --font-sans: "Montserrat", "sans-serif";
-  --color-primary: #056FEC; /* Vibrant blue */
-  --color-primary-dark: #045bbd; 
-  --color-secondary-bg: #EAF4FF; /* Light blue tint */
+  --color-primary: #056FEC; /* Vibrant Tech Blue */
+  --color-primary-dark: #004fb0; 
+  --color-accent: #F58220; /* Brand Amber/Orange from Logo */
+  --color-accent-hover: #e06f10;
+  --color-secondary-bg: #F0F7FF; /* Light blue tint */
 }
 
 @layer base {

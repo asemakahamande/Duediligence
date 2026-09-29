@@ -1,9 +1,9 @@
 import React from 'react';
 import { Terminal, Mail, Phone, MapPin, ArrowRight } from 'lucide-react';
 
-const Footer = () => {
+const Footer = ({ onOpenApply, onOpenContact }) => {
   return (
-    <footer className="bg-slate-900 text-slate-300 pt-20 pb-10">
+    <footer className="bg-slate-900 text-slate-300 pt-20 pb-10" id="footer">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Top CTA section */}
@@ -13,7 +13,10 @@ const Footer = () => {
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Start Your Technology Journey</h2>
             <p className="text-blue-100 text-lg max-w-xl">Learn a skill. Build your idea. Create your future. We are ready to work with you.</p>
           </div>
-          <button className="relative z-10 whitespace-nowrap px-8 py-4 bg-white text-primary hover:bg-slate-50 font-bold rounded-full transition-colors duration-300 shadow-lg flex items-center gap-2">
+          <button 
+            onClick={onOpenContact}
+            className="relative z-10 whitespace-nowrap px-8 py-4 bg-white text-primary hover:bg-amber-400 hover:text-slate-950 font-bold rounded-full transition-all duration-300 shadow-lg flex items-center gap-2 cursor-pointer"
+          >
             Contact Us Today
             <ArrowRight size={20} />
           </button>
@@ -38,11 +41,11 @@ const Footer = () => {
           <div>
             <h4 className="text-lg font-semibold text-white mb-6">Quick Links</h4>
             <ul className="space-y-4">
-              <li><a href="#" className="hover:text-primary transition-colors">Technology Training</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Website Development</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Application Development</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">About Us</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Contact</a></li>
+              <li><button onClick={onOpenApply} className="hover:text-primary transition-colors cursor-pointer">Technology Training</button></li>
+              <li><button onClick={onOpenContact} className="hover:text-primary transition-colors cursor-pointer">Website Development</button></li>
+              <li><button onClick={onOpenContact} className="hover:text-primary transition-colors cursor-pointer">Application Development</button></li>
+              <li><a href="#why-us" className="hover:text-primary transition-colors">About Us</a></li>
+              <li><button onClick={onOpenContact} className="hover:text-primary transition-colors cursor-pointer">Contact</button></li>
             </ul>
           </div>
 
@@ -50,15 +53,15 @@ const Footer = () => {
             <h4 className="text-lg font-semibold text-white mb-6">Contact Info</h4>
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
-                <Mail size={20} className="text-primary flex-shrink-0 mt-1" />
+                <Mail size={20} className="text-amber-400 flex-shrink-0 mt-1" />
                 <span>hello@duediligence.tech</span>
               </li>
               <li className="flex items-start gap-3">
-                <Phone size={20} className="text-primary flex-shrink-0 mt-1" />
-                <span>+1 (555) 123-4567</span>
+                <Phone size={20} className="text-amber-400 flex-shrink-0 mt-1" />
+                <span>09039982165</span>
               </li>
               <li className="flex items-start gap-3">
-                <MapPin size={20} className="text-primary flex-shrink-0 mt-1" />
+                <MapPin size={20} className="text-amber-400 flex-shrink-0 mt-1" />
                 <span>123 Innovation Drive, Tech District</span>
               </li>
             </ul>
