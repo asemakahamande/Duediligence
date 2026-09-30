@@ -2,10 +2,12 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
+const courseCategories = 'Software Engineering | Data Science | Data Analysis | Artificial Intelligence | Cyber Security | Digital Marketing | Cloud Computing';
+
 const slides = [
   {
     id: 1,
-    categories: 'Data Analytics Training | Artificial Intelligence | Health Informatics | Bioinformatics',
+    categories: courseCategories,
     title: 'Data Analytics for All',
     subtitle: 'Innovate with Data, Lead with Confidence',
     ctaText: 'INDIVIDUALS AND BUSINESSES',
@@ -14,7 +16,7 @@ const slides = [
   },
   {
     id: 2,
-    categories: 'Software Engineering | Full Stack Web | Mobile Apps | Cloud Computing',
+    categories: courseCategories,
     title: 'Developing World-Class Programmers',
     subtitle: 'Learn, Build, and Launch Scalable Global Software',
     ctaText: 'EXPLORE TECH COURSES',
@@ -23,7 +25,7 @@ const slides = [
   },
   {
     id: 3,
-    categories: 'Artificial Intelligence | Machine Learning | Deep Learning | Automation',
+    categories: courseCategories,
     title: 'Master Next-Gen AI & Tech',
     subtitle: 'Empowering You to Solve Real-World Challenges with Cutting-Edge AI',
     ctaText: 'START YOUR TECH CAREER',
@@ -91,7 +93,7 @@ const Hero = ({ onOpenApply }) => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
             transition={{ duration: 0.5 }}
-            className="text-xs sm:text-sm md:text-base font-medium tracking-wide text-slate-200 mb-6 drop-shadow-md max-w-3xl"
+            className="text-xs sm:text-sm md:text-base font-semibold tracking-wide text-slate-200/90 mb-6 drop-shadow-md max-w-4xl leading-relaxed"
           >
             {currentSlide.categories}
           </motion.p>
@@ -116,7 +118,7 @@ const Hero = ({ onOpenApply }) => {
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="w-24 sm:w-36 h-0.5 bg-amber-500 rounded-full mb-6"
+          className="w-24 sm:w-36 h-0.5 bg-primary rounded-full mb-6"
         />
 
         {/* Subtitle */}
@@ -146,7 +148,7 @@ const Hero = ({ onOpenApply }) => {
               onClick={() => {
                 if (onOpenApply) onOpenApply();
               }}
-              className="inline-block px-8 py-3.5 sm:px-10 sm:py-4 border-2 border-amber-500 hover:border-amber-400 bg-amber-500/10 hover:bg-amber-500 hover:text-slate-950 text-amber-400 hover:font-bold text-xs sm:text-sm font-semibold tracking-wider uppercase rounded-md transition-all duration-300 shadow-[0_0_20px_rgba(245,158,11,0.2)] hover:shadow-[0_0_30px_rgba(245,158,11,0.5)] cursor-pointer"
+              className="inline-block px-8 py-3.5 sm:px-10 sm:py-4 bg-primary hover:bg-primary-dark text-white text-xs sm:text-sm font-bold tracking-wider uppercase rounded-lg transition-all duration-300 shadow-[0_0_20px_rgba(5,111,236,0.4)] hover:shadow-[0_0_30px_rgba(5,111,236,0.7)] hover:scale-105 active:scale-95 cursor-pointer"
             >
               {currentSlide.ctaText}
             </button>
@@ -158,7 +160,7 @@ const Hero = ({ onOpenApply }) => {
       <button
         onClick={prevSlide}
         aria-label="Previous Slide"
-        className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 z-20 p-2 sm:p-3 text-white/75 hover:text-white hover:bg-white/10 rounded-full transition-all duration-200 backdrop-blur-xs focus:outline-none"
+        className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 z-20 p-2 sm:p-3 text-white/75 hover:text-white hover:bg-white/10 rounded-full transition-all duration-200 backdrop-blur-xs focus:outline-none cursor-pointer"
       >
         <ChevronLeft className="w-8 h-8 sm:w-12 sm:h-12" strokeWidth={2.5} />
       </button>
@@ -167,7 +169,7 @@ const Hero = ({ onOpenApply }) => {
       <button
         onClick={nextSlide}
         aria-label="Next Slide"
-        className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 z-20 p-2 sm:p-3 text-white/75 hover:text-white hover:bg-white/10 rounded-full transition-all duration-200 backdrop-blur-xs focus:outline-none"
+        className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 z-20 p-2 sm:p-3 text-white/75 hover:text-white hover:bg-white/10 rounded-full transition-all duration-200 backdrop-blur-xs focus:outline-none cursor-pointer"
       >
         <ChevronRight className="w-8 h-8 sm:w-12 sm:h-12" strokeWidth={2.5} />
       </button>
@@ -179,10 +181,10 @@ const Hero = ({ onOpenApply }) => {
             key={index}
             onClick={() => goToSlide(index)}
             aria-label={`Go to slide ${index + 1}`}
-            className={`transition-all duration-300 rounded-xs focus:outline-none ${
+            className={`transition-all duration-300 rounded-xs focus:outline-none cursor-pointer ${
               currentIndex === index
-                ? 'w-4 h-4 border-2 border-amber-400 bg-amber-400/80 shadow-[0_0_10px_rgba(245,158,11,0.6)]'
-                : 'w-3.5 h-3.5 border-2 border-amber-400/50 bg-transparent hover:border-amber-400'
+                ? 'w-4 h-4 border-2 border-primary bg-primary shadow-[0_0_12px_rgba(5,111,236,0.8)]'
+                : 'w-3.5 h-3.5 border-2 border-primary/50 bg-transparent hover:border-primary'
             }`}
           />
         ))}

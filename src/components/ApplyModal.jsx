@@ -1,18 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, CheckCircle2, FileText, AlertCircle, Sparkles } from 'lucide-react';
 import { countryCodes } from '../data/countryCodes';
+import { coursesData } from '../data/coursesData';
+import { youngCodersCourses } from '../data/youngCodersData';
 
 // Replace this URL with your Google Form embed URL if you want the Google Form iframe directly
 // Example: "https://docs.google.com/forms/d/e/1FAIpQLSc.../viewform?embedded=true"
 export const GOOGLE_FORM_EMBED_URL = ""; 
 
 const courses = [
-  { id: 'data-analytics', name: 'Data Analytics & Business Intelligence', price: '₦150,000 ($299)', duration: '12 Weeks' },
-  { id: 'software-eng', name: 'Software Engineering (Full Stack)', price: '₦250,000 ($499)', duration: '16 Weeks' },
-  { id: 'ai-ml', name: 'Artificial Intelligence & Machine Learning', price: '₦200,000 ($399)', duration: '14 Weeks' },
-  { id: 'cybersecurity', name: 'Cybersecurity & Cloud Engineering', price: '₦200,000 ($399)', duration: '12 Weeks' },
-  { id: 'custom-dev', name: 'Custom Website / Application Training', price: 'Custom Quote', duration: 'Flexible' }
+  ...coursesData.map(c => ({
+    id: c.id,
+    name: `${c.title} (${c.duration})`,
+    price: c.price,
+    duration: c.duration,
+    category: 'Professional Tracks'
+  })),
+  ...youngCodersCourses.map(c => ({
+    id: c.id,
+    name: `[Young Coders] ${c.title} (${c.gradeLevel || 'Grade 1 - 12'})`,
+    price: c.price,
+    duration: c.duration,
+    category: 'Young Coders Academy (Grade 1-12)'
+  }))
 ];
 
 const ApplyModal = ({ isOpen, onClose, defaultCourse = '' }) => {
@@ -26,6 +37,12 @@ const ApplyModal = ({ isOpen, onClose, defaultCourse = '' }) => {
     learningMode: 'Online (Virtual Live)',
     agreedToTerms: false
   });
+
+  useEffect(() => {
+    if (defaultCourse) {
+      setFormData((prev) => ({ ...prev, course: defaultCourse }));
+    }
+  }, [defaultCourse]);
 
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [error, setError] = useState('');
@@ -261,11 +278,20 @@ const ApplyModal = ({ isOpen, onClose, defaultCourse = '' }) => {
                     onChange={handleChange}
                     className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:bg-white transition-all font-medium text-slate-900"
                   >
-                    {courses.map((course) => (
-                      <option key={course.id} value={course.id}>
-                        {course.name} ({course.duration})
-                      </option>
-                    ))}
+                    <optgroup label="Professional Tracks">
+                      {courses.filter(c => c.category === 'Professional Tracks').map((course) => (
+                        <option key={course.id} value={course.id}>
+                          {course.name}
+                        </option>
+                      ))}
+                    </optgroup>
+                    <optgroup label="Young Coders Academy (Grade 1–12)">
+                      {courses.filter(c => c.category.includes('Young Coders')).map((course) => (
+                        <option key={course.id} value={course.id}>
+                          {course.name}
+                        </option>
+                      ))}
+                    </optgroup>
                   </select>
                 </div>
 
