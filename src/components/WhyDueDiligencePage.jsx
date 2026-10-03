@@ -90,6 +90,16 @@ const WhyDueDiligencePage = ({ onOpenApply, onNavigate }) => {
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-600/15 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 pointer-events-none" />
 
+        {/* Transparent background image for mobile screens */}
+        <div className="lg:hidden absolute inset-0 z-0 opacity-25 pointer-events-none overflow-hidden">
+          <img
+            src={heroImage}
+            alt=""
+            className="w-full h-full object-cover filter brightness-75 contrast-110"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-900/80 via-slate-900/60 to-slate-900/90" />
+        </div>
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-start">
           <motion.div
@@ -134,12 +144,12 @@ const WhyDueDiligencePage = ({ onOpenApply, onNavigate }) => {
             </div>
           </motion.div>
 
-          {/* Sticky hero picture */}
+          {/* Sticky hero picture (Desktop only) */}
           <motion.div
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.7, delay: 0.1 }}
-            className="lg:sticky lg:top-28"
+            className="hidden lg:block lg:sticky lg:top-28"
           >
             <div className="relative">
               <div className="absolute -inset-2 bg-gradient-to-br from-primary/50 to-amber-400/40 rounded-3xl blur-xl opacity-60" />
