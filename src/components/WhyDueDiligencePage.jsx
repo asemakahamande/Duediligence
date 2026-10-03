@@ -1,5 +1,5 @@
 import React from 'react';
-import heroImage from '../assets/why.png';
+import heroImage from '../assets/why.webp';
 import { motion } from 'framer-motion';
 import { 
   ShieldCheck, 

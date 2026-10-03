@@ -1,0 +1,364 @@
+import { 
+  Smartphone, 
+  Gamepad2, 
+  BrainCircuit, 
+  Globe, 
+  Terminal, 
+  Cpu, 
+  Boxes,
+  Sparkles
+} from 'lucide-react';
+
+export const gradeGroups = [
+  { id: 'all', label: 'All Grades', group: 'all', ages: 'Grade 1–14', desc: 'Comprehensive K-12 & Pre-University Tech Tracks' },
+  { id: '1-3', label: 'Grade 1–3', group: 'Grade 1-3', ages: 'Ages 6–8', desc: 'Visual Block Coding, Creative Storytelling & Math Logic' },
+  { id: '4-5', label: 'Grade 4–5', group: 'Grade 4-5', ages: 'Ages 9–10', desc: 'Mobile App Creation, Smart Sensors & Micro:bit Robotics' },
+  { id: '6-8', label: 'Grade 6–8', group: 'Grade 6-8', ages: 'Ages 11–13', desc: 'Roblox 3D Lua Scripting & Artificial Intelligence' },
+  { id: '9-14', label: 'Grade 9–14', group: 'Grade 9-14', ages: 'Ages 14–18+', desc: 'Python Software Engineering & Full-Stack Web Development' },
+];
+
+export const youngCodersCourses = [
+  {
+    id: 'scratch-coding',
+    title: 'Scratch Coding & 2D Game Design',
+    tagline: 'Master Computational Logic, Storytelling & Arcade Games',
+    gradeLevel: 'Grade 1 - 3',
+    gradeGroup: 'Grade 1-3',
+    ageRange: 'Ages 6 - 8',
+    icon: Gamepad2,
+    color: 'from-amber-500 to-orange-600',
+    duration: '8 Weeks',
+    level: 'Beginner (Absolute Starter)',
+    mode: 'Fun Live Workshops & Game Jams',
+    price: '₦70,000 ($140)',
+    modernNeed: 'Developed by MIT, Scratch is the premier coding platform for students in Grade 1 to 3. It builds foundational algorithmic thinking, problem-solving stamina, and mathematical creativity through colorful visual blocks without typing frustration.',
+    whatKidsLearn: [
+      'Sequencing, loops, conditional branches, and coordinates',
+      'Character animation, costume switching, and sound editing',
+      'Collision physics, scoring systems, and multi-level game design',
+      'Debugging errors and remixing creative global projects'
+    ],
+    tools: ['MIT Scratch 3.0', 'Scratch Vector Paint', 'Audio Studio', 'Scratch Community'],
+    curriculum: [
+      {
+        module: 'Module 1',
+        title: 'Welcome to MIT Scratch & Sprite Animation',
+        description: 'Tour of Scratch interface, coordinate system (X & Y), moving characters, sound triggers, and animated stories.'
+      },
+      {
+        module: 'Module 2',
+        title: 'Game Loops, Controls & Keyboard Events',
+        description: 'Building player-controlled movements, boundaries, jumping mechanics, and background scrolling.'
+      },
+      {
+        module: 'Module 3',
+        title: 'Sensing, Variables & Scoring Mechanics',
+        description: 'Detecting collisions, timers, scoreboards, health bars, and enemy spawn systems.'
+      },
+      {
+        module: 'Module 4',
+        title: 'Cloning & Advanced Multi-Level Games',
+        description: 'Using sprite clones for projectile shooting, boss battles, level transitions, and win/loss states.'
+      },
+      {
+        module: 'Capstone Project',
+        title: 'Full Custom 2D Arcade Video Game',
+        description: 'Design and code a complete playable arcade game (like Maze Runner or Platformer) and share it with friends online.'
+      }
+    ]
+  },
+  {
+    id: 'thunkable-apps',
+    title: 'Thunkable Mobile App Builder',
+    tagline: 'Design & Publish Real iOS & Android Apps on Your Smartphone',
+    gradeLevel: 'Grade 4 - 5',
+    gradeGroup: 'Grade 4-5',
+    ageRange: 'Ages 9 - 10',
+    icon: Smartphone,
+    color: 'from-pink-500 to-rose-600',
+    duration: '8 Weeks',
+    level: 'Beginner Friendly (No Prior Experience)',
+    mode: 'Interactive Live Online & Guided App Labs',
+    price: '₦80,000 ($160)',
+    modernNeed: 'Smartphones are everywhere, but most students only consume apps. With Thunkable, Grade 4 to 5 learners become creators, learning how mobile cameras, GPS, speech synthesizers, and cloud databases work while building and running apps directly on their own mobile devices.',
+    whatKidsLearn: [
+      'Visual drag-and-drop UI/UX mobile design',
+      'Connecting phone sensors (Camera, Location, Accelerometer)',
+      'Working with cloud data and real-time user inputs',
+      'Publishing and sharing playable apps with family & friends'
+    ],
+    tools: ['Thunkable X', 'Figma for Kids', 'Live Mobile Testing', 'Cloud Databases'],
+    curriculum: [
+      {
+        module: 'Module 1',
+        title: 'Introduction to Mobile Apps & UI Design',
+        description: 'Understanding app interfaces, screens, buttons, sliders, sound players, and styling visual app layouts.'
+      },
+      {
+        module: 'Module 2',
+        title: 'App Logic, Variables & User Events',
+        description: 'Triggering actions with click events, storing user names and scores using variables, and conditional IF/ELSE blocks.'
+      },
+      {
+        module: 'Module 3',
+        title: 'Hardware Sensors & Multimedia',
+        description: 'Accessing phone cameras, sound recorders, text-to-speech converters, and device accelerometer motion detection.'
+      },
+      {
+        module: 'Module 4',
+        title: 'Cloud Data & Multiplayer Features',
+        description: 'Saving high scores and chat messages in real-time cloud spreadsheets and databases.'
+      },
+      {
+        module: 'Capstone Project',
+        title: 'Personal Utility / Quiz Mobile App for App Store',
+        description: 'Build a complete, fully functioning smartphone application such as a Personal Study Companion or Flashcard Game.'
+      }
+    ]
+  },
+  {
+    id: 'robotics-iot-kids',
+    title: 'Robotics & Micro:bit Physical Computing',
+    tagline: 'Bring Code into the Real World with Smart Sensors & Gadgets',
+    gradeLevel: 'Grade 4 - 5',
+    gradeGroup: 'Grade 4-5',
+    ageRange: 'Ages 9 - 10',
+    icon: Cpu,
+    color: 'from-cyan-500 to-blue-600',
+    duration: '8 Weeks',
+    level: 'Beginner Friendly Hardware',
+    mode: 'Hands-on Hardware Simulations & Live Labs',
+    price: '₦95,000 ($190)',
+    modernNeed: 'Physical computing connects code with real-world objects. Students in Grade 4 to 5 learn how electronic gadgets, smart home devices, and robots think by programming microcontrollers, sensors, LED matrices, and motors.',
+    whatKidsLearn: [
+      'Understanding electronics, circuits, and inputs/outputs',
+      'Programming BBC Micro:bit microcontrollers',
+      'Reading accelerometer, temperature, light, and compass sensors',
+      'Building smart alarms, digital dice, and robotic controllers'
+    ],
+    tools: ['Microsoft MakeCode', 'BBC Micro:bit Simulator', 'Tinkercad Circuits', 'Python for Micro:bit'],
+    curriculum: [
+      {
+        module: 'Module 1',
+        title: 'Introduction to Micro:bit & LED Matrix Displays',
+        description: 'Hardware overview, programming scrolling text, icons, animations, and button inputs.'
+      },
+      {
+        module: 'Module 2',
+        title: 'Sensors: Light, Temperature & Motion Detection',
+        description: 'Reading environmental sensors, building digital thermometers, pedometers, and shake-activated dice.'
+      },
+      {
+        module: 'Module 3',
+        title: 'Radio Signals & Wireless Micro:bit Communication',
+        description: 'Sending encrypted secret messages and wireless multiplayer game signals between devices.'
+      },
+      {
+        module: 'Module 4',
+        title: 'Motor Control & Sound Synthesizers',
+        description: 'Generating musical tunes, tone synthesizers, and controlling servo motors.'
+      },
+      {
+        module: 'Capstone Project',
+        title: 'Smart Home Alarm & Interactive Gadget System',
+        description: 'Program a simulated smart security device with motion detection, light alerts, and wireless warning sirens.'
+      }
+    ]
+  },
+  {
+    id: 'roblox-game-dev',
+    title: 'Roblox 3D Game Design & Lua Scripting',
+    tagline: 'Build 3D Multiplayer Worlds & Obstacle Courses in Roblox Studio',
+    gradeLevel: 'Grade 6 - 8',
+    gradeGroup: 'Grade 6-8',
+    ageRange: 'Ages 11 - 13',
+    icon: Boxes,
+    color: 'from-red-500 to-pink-600',
+    duration: '8 Weeks',
+    level: 'Beginner to Intermediate 3D Dev',
+    mode: 'Live 3D Studio Labs & Game Testing',
+    price: '₦85,000 ($170)',
+    modernNeed: 'Millions of students play Roblox daily. By transitioning from player to creator in Roblox Studio, Grade 6 to 8 learners master 3D coordinate geometry, physics properties, and real Lua coding to build their own multiplayer obstacle courses (Obbies) and adventures.',
+    whatKidsLearn: [
+      '3D world building, terrain editing, and lighting effects',
+      'Object physics, collision properties, and anchoring',
+      'Lua scripting for kill bricks, checkpoints, and speed boosters',
+      'Publishing multiplayer games to the Roblox platform'
+    ],
+    tools: ['Roblox Studio', 'Lua Scripting Language', 'Roblox Toolbox & Physics Engine'],
+    curriculum: [
+      {
+        module: 'Module 1',
+        title: 'Roblox Studio Foundations & 3D World Building',
+        description: 'Navigation, 3D parts, transforms, materials, colors, terrain tools, and visual asset modeling.'
+      },
+      {
+        module: 'Module 2',
+        title: 'Introduction to Lua Scripting in Roblox',
+        description: 'Writing your first script, changing properties via code, handling Touched events, and hazard lava blocks.'
+      },
+      {
+        module: 'Module 3',
+        title: 'Leaderboards, Checkpoints & Player Stats',
+        description: 'Creating stage save systems, leaderstats (coins/time), jump pads, and speed boosters.'
+      },
+      {
+        module: 'Module 4',
+        title: 'GUI Design & Sound FX Integration',
+        description: 'Creating screen HUDs, health bars, custom shop prompts, and background music.'
+      },
+      {
+        module: 'Capstone Project',
+        title: 'Full 3D Multiplayer Roblox Adventure Obby',
+        description: 'Design, code, test, and publish a multiplayer 3D obstacle course game with custom stages and leaderboards.'
+      }
+    ]
+  },
+  {
+    id: 'ai-machine-learning-kids',
+    title: 'AI & Machine Learning for Young Minds',
+    tagline: 'Teach Computers to See, Hear, Think, and Generate Art',
+    gradeLevel: 'Grade 6 - 8',
+    gradeGroup: 'Grade 6-8',
+    ageRange: 'Ages 11 - 13',
+    icon: BrainCircuit,
+    color: 'from-purple-500 to-indigo-600',
+    duration: '10 Weeks',
+    level: 'Beginner to Intermediate AI',
+    mode: 'Virtual Live & Guided AI Labs',
+    price: '₦100,000 ($200)',
+    modernNeed: 'Students in Grade 6 to 8 are growing up in an AI-driven world. Learning how AI learns from data demystifies the technology, teaches digital ethics, and equips learners to be active innovators rather than passive consumers.',
+    whatKidsLearn: [
+      'How computers recognize images, faces, and audio patterns',
+      'Training visual AI models with Teachable Machine',
+      'Creating interactive voice assistants and smart games',
+      'Ethical understanding of AI bias, safety, and Generative AI'
+    ],
+    tools: ['Google Teachable Machine', 'Scratch AI Extensions', 'OpenAI APIs for Education', 'Quick Draw AI'],
+    curriculum: [
+      {
+        module: 'Module 1',
+        title: 'What is AI? How Machines Learn',
+        description: 'Comparing human learning with machine learning, exploring dataset collection, and training first vision models.'
+      },
+      {
+        module: 'Module 2',
+        title: 'Computer Vision & Gesture Control Games',
+        description: 'Training models to recognize hand gestures, body poses, and using them to control video games via webcam.'
+      },
+      {
+        module: 'Module 3',
+        title: 'Voice AI & Sound Recognition',
+        description: 'Collecting audio samples, training voice command recognition models, and building smart voice assistants.'
+      },
+      {
+        module: 'Module 4',
+        title: 'Generative AI & Smart Chatbots',
+        description: 'Understanding Large Language Models, prompt crafting for stories and art, and building custom trivia bots.'
+      },
+      {
+        module: 'Capstone Project',
+        title: 'Smart AI Camera App / Gesture-Controlled Game',
+        description: 'Train a custom machine learning model and integrate it into an interactive game that responds in real-time to the player.'
+      }
+    ]
+  },
+  {
+    id: 'web-dev-young-coders',
+    title: 'Web Development for Young Coders',
+    tagline: 'Create Your Own Beautiful Websites, Portfolios & Mini Web Games',
+    gradeLevel: 'Grade 9 - 14',
+    gradeGroup: 'Grade 9-14',
+    ageRange: 'Ages 14 - 18+',
+    icon: Globe,
+    color: 'from-blue-500 to-cyan-600',
+    duration: '10 Weeks',
+    level: 'Beginner to Intermediate',
+    mode: 'Interactive Live Coding & Web Hosting',
+    price: '₦90,000 ($180)',
+    modernNeed: 'Building websites teaches students in Grade 9 to 14 how the modern web operates. By mastering HTML5, CSS3, and JavaScript, students gain the superpower of publishing their portfolios, blogs, and interactive web tools live on the internet.',
+    whatKidsLearn: [
+      'Structuring web pages with modern HTML5',
+      'Styling colors, fonts, layouts, and animations with CSS3',
+      'Adding interactive buttons, light/dark modes, and quizzes with JavaScript',
+      'Deploying personal live websites to the web'
+    ],
+    tools: ['VS Code / Replit', 'HTML5 & CSS3', 'JavaScript Basics', 'Netlify / GitHub Pages'],
+    curriculum: [
+      {
+        module: 'Module 1',
+        title: 'HTML Foundations: Building Your First Web Page',
+        description: 'Headings, paragraphs, images, links, audio/video embeds, lists, and structuring web documents.'
+      },
+      {
+        module: 'Module 2',
+        title: 'CSS Styling, Colors, Fonts & Cool Hover Effects',
+        description: 'Styling elements, Google Fonts, background gradients, borders, shadows, and smooth hover animations.'
+      },
+      {
+        module: 'Module 3',
+        title: 'Responsive Web Design & Flexbox Layouts',
+        description: 'Making websites look great on both mobile phones and desktop computer screens.'
+      },
+      {
+        module: 'Module 4',
+        title: 'Interactive JavaScript: Buttons, Popups & Quizzes',
+        description: 'Writing JavaScript functions, handling clicks, changing web content on the fly, and creating trivia mini-games.'
+      },
+      {
+        module: 'Capstone Project',
+        title: 'Live Personal Portfolio / Hobbies Web Portal',
+        description: 'Build, style, and launch a multi-page personal website hosted live on the internet to showcase your projects.'
+      }
+    ]
+  },
+  {
+    id: 'python-young-coders',
+    title: 'Python for Young Coders',
+    tagline: 'From Beginner Syntax to Turtle Graphics & Pygame Arcade Creations',
+    gradeLevel: 'Grade 9 - 14',
+    gradeGroup: 'Grade 9-14',
+    ageRange: 'Ages 14 - 18+',
+    icon: Terminal,
+    color: 'from-emerald-500 to-teal-600',
+    duration: '10 Weeks',
+    level: 'Beginner to Intermediate Syntax',
+    mode: 'Live Coding Workshops & Creative Projects',
+    price: '₦90,000 ($180)',
+    modernNeed: 'Python is the world\'s most popular and versatile programming language, powering Google, Netflix, and NASA. Grade 9 to 14 students transition into real text coding, learning core computer science algorithms and building 2D arcade games.',
+    whatKidsLearn: [
+      'Python syntax, variables, data types, and arithmetic logic',
+      'Loops (FOR & WHILE), conditional statements, and functions',
+      'Geometric art and animations with Python Turtle',
+      'Game logic, sprites, and sound effects with Pygame'
+    ],
+    tools: ['Python 3', 'IDLE / Replit', 'Turtle Graphics', 'Pygame'],
+    curriculum: [
+      {
+        module: 'Module 1',
+        title: 'Python Syntax & Turtle Geometric Graphics',
+        description: 'Variables, inputs, outputs, drawing geometric shapes, color spirals, and automated turtle animations.'
+      },
+      {
+        module: 'Module 2',
+        title: 'Control Flow, Logic & Text Adventures',
+        description: 'Conditional statements (IF/ELIF/ELSE), random number generators, and interactive choose-your-own-adventure text games.'
+      },
+      {
+        module: 'Module 3',
+        title: 'Data Structures & Python Functions',
+        description: 'Lists, dictionaries, reusable custom functions, and modular code structuring.'
+      },
+      {
+        module: 'Module 4',
+        title: 'Intro to Game Development with Pygame',
+        description: 'Game loops, screen updates, keyboard events, drawing sprites, and collision detection.'
+      },
+      {
+        module: 'Capstone Project',
+        title: '2D Python Arcade Game (Space Shooter / Pong)',
+        description: 'Code a full 2D arcade video game in Python featuring player controls, sound effects, scoring, and animated graphics.'
+      }
+    ]
+  }
+];

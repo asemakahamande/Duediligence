@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import whyImage from '../assets/why.png';
-import childrenImage from '../assets/children.png';
+import whyImage from '../assets/why.webp';
+import childrenImage from '../assets/children.webp';
 
 const courseCategories = 'Software Engineering | Data Science | Data Analysis | Artificial Intelligence | Cyber Security | Digital Marketing | Cloud Computing';
 
@@ -51,6 +51,16 @@ const Hero = ({ onOpenApply }) => {
   const goToSlide = (index) => {
     setCurrentIndex(index);
   };
+
+  // Preload all hero slide images for instant switching & fast load
+  useEffect(() => {
+    slides.forEach((slide) => {
+      if (slide.image) {
+        const img = new Image();
+        img.src = slide.image;
+      }
+    });
+  }, []);
 
   useEffect(() => {
     if (isPaused) return;
