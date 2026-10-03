@@ -91,13 +91,13 @@ const WhyDueDiligencePage = ({ onOpenApply, onNavigate }) => {
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 pointer-events-none" />
 
         {/* Transparent background image for mobile screens */}
-        <div className="lg:hidden absolute inset-0 z-0 opacity-25 pointer-events-none overflow-hidden">
+        <div className="lg:hidden absolute inset-0 z-0 opacity-45 pointer-events-none overflow-hidden">
           <img
             src={heroImage}
             alt=""
-            className="w-full h-full object-cover filter brightness-75 contrast-110"
+            className="w-full h-full object-cover filter brightness-90 contrast-105"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-900/80 via-slate-900/60 to-slate-900/90" />
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-950/70 via-slate-900/40 to-slate-950/80" />
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
