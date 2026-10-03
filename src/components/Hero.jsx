@@ -86,7 +86,7 @@ const Hero = ({ onOpenApply }) => {
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.7, ease: 'easeOut' }}
-          className="absolute inset-0 bg-contain sm:bg-cover bg-center bg-no-repeat z-0"
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
           style={{ backgroundImage: `url(${currentSlide.image})` }}
         >
           {/* Light, Soft Cinematic Overlay allowing image brightness through */}
