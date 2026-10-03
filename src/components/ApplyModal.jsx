@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, CheckCircle2, FileText, AlertCircle, Sparkles } from 'lucide-react';
+import { X, CheckCircle2, FileText, AlertCircle, Sparkles, Loader2 } from 'lucide-react';
 import { countryCodes } from '../data/countryCodes';
 import { coursesData } from '../data/coursesData';
 import { youngCodersCourses } from '../data/youngCodersData';
+import { WEB3FORMS_ACCESS_KEY, WEB3FORMS_ENDPOINT } from '../config/forms';
+import { TURNSTILE_SITE_KEY, LIMITS, clean, validateContact, checkRateLimit, recordSubmission } from '../config/formSecurity';
+import TurnstileWidget from './TurnstileWidget';
 
 // Replace this URL with your Google Form embed URL if you want the Google Form iframe directly
 // Example: "https://docs.google.com/forms/d/e/1FAIpQLSc.../viewform?embedded=true"
@@ -19,10 +22,10 @@ const courses = [
   })),
   ...youngCodersCourses.map(c => ({
     id: c.id,
-    name: `[Young Coders] ${c.title} (${c.gradeLevel || 'Grade 1 - 12'})`,
+    name: `[Young Coders] ${c.title} (${c.gradeLevel || 'Grade 1 - 14'})`,
     price: c.price,
     duration: c.duration,
-    category: 'Young Coders Academy (Grade 1-12)'
+    category: 'Young Coders Academy (Grade 1-14)'
   }))
 ];
 
@@ -45,7 +48,10 @@ const ApplyModal = ({ isOpen, onClose, defaultCourse = '' }) => {
   }, [defaultCourse]);
 
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
+  const [honeypot, setHoneypot] = useState('');
+  const [captchaToken, setCaptchaToken] = useState('');
 
   const selectedCourseObj = courses.find((c) => c.id === formData.course) || courses[0];
 
@@ -58,23 +64,86 @@ const ApplyModal = ({ isOpen, onClose, defaultCourse = '' }) => {
     setError('');
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.fullName || !formData.email || !formData.phone || !formData.gender) {
+
+    // Honeypot: bots fill hidden fields. Pretend success, send nothing.
+    if (honeypot) {
+      setIsSubmitted(true);
+      return;
+    }
+
+    const data = {
+      fullName: clean(formData.fullName),
+      email: clean(formData.email),
+      phone: clean(formData.phone)
+    };
+
+    if (!data.fullName || !data.email || !data.phone || !formData.gender) {
       setError('Please fill in all required fields.');
+      return;
+    }
+    const validationError = validateContact(data);
+    if (validationError) {
+      setError(validationError);
       return;
     }
     if (!formData.agreedToTerms) {
       setError('Please review and agree to the Student Agreement.');
       return;
     }
+    const limitError = checkRateLimit();
+    if (limitError) {
+      setError(limitError);
+      return;
+    }
+    if (TURNSTILE_SITE_KEY && !captchaToken) {
+      setError('Please complete the security check.');
+      return;
+    }
 
-    // Process submission (send to email/webhook/sheets)
-    setIsSubmitted(true);
+    setIsSubmitting(true);
+    setError('');
+
+    try {
+      const submissionBody = new FormData();
+      submissionBody.append('access_key', WEB3FORMS_ACCESS_KEY);
+      submissionBody.append('subject', `🎓 New Student Application: ${data.fullName} - ${selectedCourseObj.name}`);
+      submissionBody.append('from_name', 'Due Diligence Institute Admissions');
+      submissionBody.append('Full Name', data.fullName);
+      submissionBody.append('Email', data.email);
+      submissionBody.append('Phone Number', `${formData.countryCode} ${data.phone}`);
+      submissionBody.append('Gender', formData.gender);
+      submissionBody.append('Selected Course', selectedCourseObj.name);
+      submissionBody.append('Tuition Fee', selectedCourseObj.price);
+      submissionBody.append('Duration', selectedCourseObj.duration);
+      submissionBody.append('Learning Mode', formData.learningMode);
+      submissionBody.append('Agreed to Terms', 'Yes');
+      if (captchaToken) submissionBody.append('cf-turnstile-response', captchaToken);
+
+      const response = await fetch(WEB3FORMS_ENDPOINT, {
+        method: 'POST',
+        body: submissionBody
+      });
+
+      const result = await response.json();
+
+      if (response.ok && result.success) {
+        recordSubmission();
+        setIsSubmitted(true);
+      } else {
+        setError(result.message || 'Unable to submit application. Please check your network and try again.');
+      }
+    } catch (err) {
+      setError('Network error occurred. Please check your internet connection and try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleReset = () => {
     setIsSubmitted(false);
+    setIsSubmitting(false);
     onClose();
   };
 
@@ -176,6 +245,7 @@ const ApplyModal = ({ isOpen, onClose, defaultCourse = '' }) => {
                     name="fullName"
                     required
                     placeholder="e.g. John Doe"
+                    maxLength={LIMITS.name}
                     value={formData.fullName}
                     onChange={handleChange}
                     className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:bg-white transition-all text-slate-900"
@@ -193,6 +263,7 @@ const ApplyModal = ({ isOpen, onClose, defaultCourse = '' }) => {
                       name="email"
                       required
                       placeholder="e.g. john@example.com"
+                      maxLength={LIMITS.email}
                       value={formData.email}
                       onChange={handleChange}
                       className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:bg-white transition-all text-slate-900"
@@ -221,6 +292,7 @@ const ApplyModal = ({ isOpen, onClose, defaultCourse = '' }) => {
                         name="phone"
                         required
                         placeholder="801 234 5678"
+                        maxLength={LIMITS.phone}
                         value={formData.phone}
                         onChange={handleChange}
                         className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:bg-white transition-all text-slate-900"
@@ -285,7 +357,7 @@ const ApplyModal = ({ isOpen, onClose, defaultCourse = '' }) => {
                         </option>
                       ))}
                     </optgroup>
-                    <optgroup label="Young Coders Academy (Grade 1–12)">
+                    <optgroup label="Young Coders Academy (Grade 1–14)">
                       {courses.filter(c => c.category.includes('Young Coders')).map((course) => (
                         <option key={course.id} value={course.id}>
                           {course.name}
@@ -322,7 +394,7 @@ const ApplyModal = ({ isOpen, onClose, defaultCourse = '' }) => {
                       <a
                         href="#terms"
                         target="_blank"
-                        rel="noreferrer"
+                        rel="noopener noreferrer"
                         className="text-primary hover:underline font-bold inline-flex items-center gap-1"
                       >
                         <FileText size={13} />
@@ -333,12 +405,34 @@ const ApplyModal = ({ isOpen, onClose, defaultCourse = '' }) => {
                   </div>
                 </div>
 
+                {/* Honeypot (hidden from humans) */}
+                <input
+                  type="text"
+                  name="website"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                  value={honeypot}
+                  onChange={(ev) => setHoneypot(ev.target.value)}
+                  style={{ position: 'absolute', left: '-9999px', width: 1, height: 1, opacity: 0 }}
+                />
+
+                <TurnstileWidget onToken={setCaptchaToken} />
+
                 {/* Submit Button */}
                 <button
                   type="submit"
-                  className="w-full py-4 bg-primary hover:bg-amber-500 hover:text-slate-950 text-white font-bold rounded-xl transition-all duration-300 text-sm tracking-wider uppercase shadow-lg shadow-primary/20 hover:shadow-amber-500/30 cursor-pointer"
+                  disabled={isSubmitting}
+                  className="w-full py-4 bg-primary hover:bg-amber-500 hover:text-slate-950 disabled:opacity-70 disabled:cursor-not-allowed text-white font-bold rounded-xl transition-all duration-300 text-sm tracking-wider uppercase shadow-lg shadow-primary/20 hover:shadow-amber-500/30 flex items-center justify-center gap-2 cursor-pointer"
                 >
-                  Submit Application
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 size={18} className="animate-spin" />
+                      Submitting Application...
+                    </>
+                  ) : (
+                    'Submit Application'
+                  )}
                 </button>
               </form>
             )}

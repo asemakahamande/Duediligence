@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, CheckCircle2, MessageSquare, AlertCircle, Mail, Phone, User, Send } from 'lucide-react';
+import { X, CheckCircle2, MessageSquare, AlertCircle, Mail, Phone, User, Send, Loader2 } from 'lucide-react';
 import { countryCodes } from '../data/countryCodes';
+import { WEB3FORMS_ACCESS_KEY, WEB3FORMS_ENDPOINT } from '../config/forms';
+import { TURNSTILE_SITE_KEY, LIMITS, clean, cleanMultiline, validateContact, checkRateLimit, recordSubmission } from '../config/formSecurity';
+import TurnstileWidget from './TurnstileWidget';
 
 // Replace this URL with your Google Contact Form embed URL if you want the Google Form iframe directly
 // Example: "https://docs.google.com/forms/d/e/1FAIpQLSc.../viewform?embedded=true"
@@ -17,7 +20,10 @@ const ContactModal = ({ isOpen, onClose }) => {
   });
 
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
+  const [honeypot, setHoneypot] = useState('');
+  const [captchaToken, setCaptchaToken] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,19 +34,78 @@ const ContactModal = ({ isOpen, onClose }) => {
     setError('');
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.fullName || !formData.email || !formData.phone || !formData.message) {
-      setError('Please fill in all 4 required fields.');
+
+    // Honeypot: bots fill hidden fields. Pretend success, send nothing.
+    if (honeypot) {
+      setIsSubmitted(true);
       return;
     }
 
-    // Process contact submission
-    setIsSubmitted(true);
+    const data = {
+      fullName: clean(formData.fullName),
+      email: clean(formData.email),
+      phone: clean(formData.phone),
+      message: cleanMultiline(formData.message)
+    };
+
+    if (!data.fullName || !data.email || !data.phone || !data.message) {
+      setError('Please fill in all 4 required fields.');
+      return;
+    }
+    const validationError = validateContact(data);
+    if (validationError) {
+      setError(validationError);
+      return;
+    }
+    const limitError = checkRateLimit();
+    if (limitError) {
+      setError(limitError);
+      return;
+    }
+    if (TURNSTILE_SITE_KEY && !captchaToken) {
+      setError('Please complete the security check.');
+      return;
+    }
+
+    setIsSubmitting(true);
+    setError('');
+
+    try {
+      const submissionBody = new FormData();
+      submissionBody.append('access_key', WEB3FORMS_ACCESS_KEY);
+      submissionBody.append('subject', `💬 New Contact Inquiry from ${data.fullName}`);
+      submissionBody.append('from_name', 'Due Diligence Website Contact Form');
+      submissionBody.append('Full Name', data.fullName);
+      submissionBody.append('Email', data.email);
+      submissionBody.append('Phone Number', `${formData.countryCode} ${data.phone}`);
+      submissionBody.append('Message', data.message);
+      if (captchaToken) submissionBody.append('cf-turnstile-response', captchaToken);
+
+      const response = await fetch(WEB3FORMS_ENDPOINT, {
+        method: 'POST',
+        body: submissionBody
+      });
+
+      const result = await response.json();
+
+      if (response.ok && result.success) {
+        recordSubmission();
+        setIsSubmitted(true);
+      } else {
+        setError(result.message || 'Unable to send message. Please check your network and try again.');
+      }
+    } catch (err) {
+      setError('Network error occurred. Please check your internet connection and try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleReset = () => {
     setIsSubmitted(false);
+    setIsSubmitting(false);
     setFormData({
       fullName: '',
       email: '',
@@ -147,6 +212,7 @@ const ContactModal = ({ isOpen, onClose }) => {
                       name="fullName"
                       required
                       placeholder="e.g. John Doe"
+                      maxLength={LIMITS.name}
                       value={formData.fullName}
                       onChange={handleChange}
                       className="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:bg-white transition-all text-slate-900"
@@ -166,6 +232,7 @@ const ContactModal = ({ isOpen, onClose }) => {
                       name="email"
                       required
                       placeholder="e.g. john@example.com"
+                      maxLength={LIMITS.email}
                       value={formData.email}
                       onChange={handleChange}
                       className="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:bg-white transition-all text-slate-900"
@@ -198,6 +265,7 @@ const ContactModal = ({ isOpen, onClose }) => {
                         name="phone"
                         required
                         placeholder="801 234 5678"
+                        maxLength={LIMITS.phone}
                         value={formData.phone}
                         onChange={handleChange}
                         className="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:bg-white transition-all text-slate-900"
@@ -217,19 +285,44 @@ const ContactModal = ({ isOpen, onClose }) => {
                     required
                     rows="4"
                     placeholder="Tell us what you'd like to discuss or inquire about..."
+                    maxLength={LIMITS.message}
                     value={formData.message}
                     onChange={handleChange}
                     className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:bg-white transition-all text-slate-900 resize-none"
                   />
                 </div>
 
+                {/* Honeypot (hidden from humans) */}
+                <input
+                  type="text"
+                  name="website"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                  value={honeypot}
+                  onChange={(ev) => setHoneypot(ev.target.value)}
+                  style={{ position: 'absolute', left: '-9999px', width: 1, height: 1, opacity: 0 }}
+                />
+
+                <TurnstileWidget onToken={setCaptchaToken} />
+
                 {/* Submit Button */}
                 <button
                   type="submit"
-                  className="w-full py-4 bg-primary hover:bg-amber-500 hover:text-slate-950 text-white font-bold rounded-xl transition-all duration-300 text-sm tracking-wider uppercase shadow-lg shadow-primary/20 hover:shadow-amber-500/30 flex items-center justify-center gap-2 cursor-pointer mt-2"
+                  disabled={isSubmitting}
+                  className="w-full py-4 bg-primary hover:bg-amber-500 hover:text-slate-950 disabled:opacity-70 disabled:cursor-not-allowed text-white font-bold rounded-xl transition-all duration-300 text-sm tracking-wider uppercase shadow-lg shadow-primary/20 hover:shadow-amber-500/30 flex items-center justify-center gap-2 cursor-pointer mt-2"
                 >
-                  <Send size={16} />
-                  Send Message
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 size={16} className="animate-spin" />
+                      Sending Message...
+                    </>
+                  ) : (
+                    <>
+                      <Send size={16} />
+                      Send Message
+                    </>
+                  )}
                 </button>
               </form>
             )}

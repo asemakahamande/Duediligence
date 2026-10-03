@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import whyImage from '../assets/why.png';
+import childrenImage from '../assets/children.png';
 
 const courseCategories = 'Software Engineering | Data Science | Data Analysis | Artificial Intelligence | Cyber Security | Digital Marketing | Cloud Computing';
 
@@ -12,7 +14,7 @@ const slides = [
     subtitle: 'Innovate with Data, Lead with Confidence',
     ctaText: 'INDIVIDUALS AND BUSINESSES',
     ctaLink: '#services',
-    image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=2000&q=80'
+    image: whyImage
   },
   {
     id: 2,
@@ -21,7 +23,7 @@ const slides = [
     subtitle: 'Learn, Build, and Launch Scalable Global Software',
     ctaText: 'EXPLORE TECH COURSES',
     ctaLink: '#services',
-    image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=2000&q=80'
+    image: childrenImage
   },
   {
     id: 3,

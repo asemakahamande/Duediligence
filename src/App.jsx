@@ -9,6 +9,8 @@ import ContactModal from './components/ContactModal';
 import YoungCodersPage from './components/YoungCodersPage';
 import WhyDueDiligencePage from './components/WhyDueDiligencePage';
 import WhatsAppChat from './components/WhatsAppChat';
+import LegalPage from './components/LegalPage';
+import CookieConsent from './components/CookieConsent';
 import './index.css';
 
 function App() {
@@ -25,6 +27,10 @@ function App() {
         setCurrentPage('young-coders');
       } else if (hash === '#why-duediligence') {
         setCurrentPage('why-duediligence');
+      } else if (hash === '#privacy') {
+        setCurrentPage('privacy');
+      } else if (hash === '#terms') {
+        setCurrentPage('terms');
       } else if (hash === '#home' || hash === '') {
         setCurrentPage('home');
       }
@@ -67,7 +73,9 @@ function App() {
       />
 
       <main className="flex-grow">
-        {currentPage === 'young-coders' ? (
+        {currentPage === 'privacy' || currentPage === 'terms' ? (
+          <LegalPage type={currentPage} onNavigate={handleNavigate} />
+        ) : currentPage === 'young-coders' ? (
           <YoungCodersPage 
             onOpenApply={(courseId) => handleOpenApply(courseId)}
             onNavigateHome={() => handleNavigate('home')}
@@ -111,6 +119,9 @@ function App() {
 
       {/* Floating WhatsApp Chat Button on Every Page */}
       <WhatsAppChat />
+
+      {/* Cookie consent banner */}
+      <CookieConsent />
     </div>
   );
 }

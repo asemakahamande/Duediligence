@@ -1,4 +1,5 @@
 import React from 'react';
+import heroImage from '../assets/why.png';
 import { motion } from 'framer-motion';
 import { 
   ShieldCheck, 
@@ -36,10 +37,10 @@ const WhyDueDiligencePage = ({ onOpenApply, onNavigate }) => {
     },
     {
       icon: GraduationCap,
-      title: "Dual-Track Ecosystem",
-      tag: "Pros & Grade 1-12",
+      title: "One Academy, Every Pathway",
+      tag: "All Courses",
       color: "from-purple-600 to-indigo-600",
-      description: "We are unique in bridging the gap across all generations. From foundational coding and robotics for Grade 1–12 students to advanced Software Engineering and Cloud DevOps for working professionals."
+      description: "From Software Engineering, AI, Cloud DevOps and Cybersecurity to Data, Digital Marketing and our Young Coders Academy, every programme is built on the same practical, mentor-led standard."
     },
     {
       icon: ShieldCheck,
@@ -67,7 +68,7 @@ const WhyDueDiligencePage = ({ onOpenApply, onNavigate }) => {
   const stats = [
     { number: "100%", label: "Hands-on Project Labs", desc: "Build real enterprise software" },
     { number: "1 : 1", label: "Mentor-to-Student Guidance", desc: "Dedicated feedback on your code" },
-    { number: "Grade 1-12", label: "Youth STEM Pathways", desc: "Starting early from Scratch to AI" },
+    { number: "All Levels", label: "Beginners to Professionals", desc: "A clear pathway for every learner" },
     { number: "7+", label: "High-Demand Specializations", desc: "Engineered for modern careers" }
   ];
 
@@ -76,39 +77,41 @@ const WhyDueDiligencePage = ({ onOpenApply, onNavigate }) => {
     { feature: "Instructors", traditional: "Academic lecturers", dueDiligence: "Active software engineers & tech practitioners" },
     { feature: "Student Support", traditional: "Crowded lecture halls with no 1:1 help", dueDiligence: "Small cohorts with direct mentorship & code reviews" },
     { feature: "Modern Tech (AI/Cloud)", traditional: "Outdated legacy syllabus", dueDiligence: "Cutting-edge tools: PyTorch, Docker, AWS, React, LLMs" },
-    { feature: "Youth Education (Grade 1–12)", traditional: "Generic computer appreciation", dueDiligence: "Real apps (Thunkable), Robotics, AI & Game Dev" },
+    { feature: "Range of Courses", traditional: "Narrow, one-size-fits-all offerings", dueDiligence: "Software, AI, Cloud, Cyber, Data, Marketing & youth coding" },
     { feature: "Outcome", traditional: "Paper certificate with no live portfolio", dueDiligence: "Deployable live applications & career readiness" }
   ];
 
   return (
     <div className="pt-20 bg-white">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-slate-900 text-white py-16 sm:py-24">
+      <section className="relative overflow-hidden bg-slate-900 text-white py-16 sm:py-20">
         {/* Glow Backdrops */}
         <div className="absolute top-0 right-0 w-96 h-96 bg-primary/20 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-600/15 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 pointer-events-none" />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-start">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
+            className="text-center lg:text-left"
           >
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/20 border border-primary/40 text-blue-300 text-xs sm:text-sm font-bold uppercase tracking-wider mb-5">
               <Sparkles size={16} className="text-amber-400" />
               <span>The Due Diligence Advantage</span>
             </div>
 
-            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white mb-6 max-w-4xl mx-auto leading-tight">
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white mb-6 leading-tight">
               Why Choose <span className="text-primary">Due Diligence</span> Technologies?
             </h1>
 
-            <p className="text-base sm:text-xl text-slate-300 max-w-3xl mx-auto mb-8 font-light leading-relaxed">
-              In a rapidly transforming digital world, generic courses are not enough. We provide rigorous, hands-on, high-standard technology training engineered to turn aspiring learners and young innovators into confident creators.
+            <p className="text-base sm:text-lg text-slate-300 max-w-xl mx-auto lg:mx-0 mb-8 font-light leading-relaxed">
+              We stand for rigorous, hands-on technology education across every course we teach. Our mission is to equip learners and businesses with practical, future-ready skills, with the same high standard from first lesson to final project.
             </p>
 
-            <div className="flex flex-wrap items-center justify-center gap-4">
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4">
               <button
                 onClick={() => onOpenApply()}
                 className="px-8 py-3.5 bg-primary hover:bg-primary-dark text-white font-bold rounded-xl shadow-[0_0_25px_rgba(5,111,236,0.5)] hover:shadow-[0_0_35px_rgba(5,111,236,0.8)] transition-all hover:scale-105 cursor-pointer text-sm uppercase tracking-wider"
@@ -117,16 +120,37 @@ const WhyDueDiligencePage = ({ onOpenApply, onNavigate }) => {
               </button>
               <button
                 onClick={() => {
-                  if (onNavigate) onNavigate('young-coders');
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                  if (onNavigate) onNavigate('home');
+                  setTimeout(() => {
+                    const el = document.getElementById('services');
+                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                  }, 100);
                 }}
                 className="px-8 py-3.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl shadow-lg transition-all hover:scale-105 cursor-pointer text-sm uppercase tracking-wider flex items-center gap-2"
               >
                 <Sparkles size={16} />
-                <span>Explore Young Coders (Grade 1–12)</span>
+                <span>Explore All Courses</span>
               </button>
             </div>
           </motion.div>
+
+          {/* Sticky hero picture */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.7, delay: 0.1 }}
+            className="lg:sticky lg:top-28"
+          >
+            <div className="relative">
+              <div className="absolute -inset-2 bg-gradient-to-br from-primary/50 to-amber-400/40 rounded-3xl blur-xl opacity-60" />
+              <img
+                src={heroImage}
+                alt="Learners and professionals collaborating on code at Due Diligence Technologies"
+                className="relative w-full h-auto rounded-3xl border border-white/15 shadow-2xl object-cover"
+              />
+            </div>
+          </motion.div>
+          </div>
 
           {/* Quick Metrics */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mt-14 pt-8 border-t border-slate-800">
@@ -191,7 +215,7 @@ const WhyDueDiligencePage = ({ onOpenApply, onNavigate }) => {
                 <div className="absolute -right-10 -bottom-10 w-48 h-48 bg-primary/30 rounded-full blur-2xl pointer-events-none" />
                 <h3 className="text-2xl font-bold mb-4">The Due Diligence Standard</h3>
                 <p className="text-sm text-slate-300 mb-6 leading-relaxed">
-                  Whether you are a university graduate transitioning to software engineering, a career professional upskilling in Artificial Intelligence, or a parent empowering your child in Grade 1–12, our structured roadmap ensures complete success.
+                  Whether you are a university graduate transitioning to software engineering, a career professional upskilling in Artificial Intelligence, or a young learner starting out with coding, our structured roadmap ensures complete success.
                 </p>
                 <div className="p-4 rounded-2xl bg-white/10 border border-white/15 space-y-2">
                   <div className="flex justify-between items-center text-xs">
@@ -293,38 +317,6 @@ const WhyDueDiligencePage = ({ onOpenApply, onNavigate }) => {
                 ))}
               </tbody>
             </table>
-          </div>
-        </div>
-      </section>
-
-      {/* Bottom CTA Banner */}
-      <section className="py-12 sm:py-16 bg-slate-900 text-white text-center relative overflow-hidden">
-        <div className="max-w-4xl mx-auto px-4 relative z-10">
-          <h2 className="text-2xl sm:text-4xl font-extrabold mb-4 tracking-tight">
-            Ready to Experience the Due Diligence Standard?
-          </h2>
-          <p className="text-base sm:text-lg text-slate-300 mb-8 max-w-2xl mx-auto">
-            Take the next step in your technology journey. Join our upcoming cohort and start building real-world software today.
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-4">
-            <button
-              onClick={() => onOpenApply()}
-              className="px-8 py-3.5 bg-primary hover:bg-primary-dark text-white font-bold rounded-xl shadow-lg transition-all hover:scale-105 cursor-pointer text-sm uppercase tracking-wider"
-            >
-              Apply for Next Cohort
-            </button>
-            <button
-              onClick={() => {
-                if (onNavigate) onNavigate('home');
-                setTimeout(() => {
-                  const el = document.getElementById('services');
-                  if (el) el.scrollIntoView({ behavior: 'smooth' });
-                }, 100);
-              }}
-              className="px-8 py-3.5 bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold rounded-xl transition-all cursor-pointer text-sm"
-            >
-              View Professional Courses
-            </button>
           </div>
         </div>
       </section>

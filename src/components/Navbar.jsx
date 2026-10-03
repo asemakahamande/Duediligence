@@ -168,7 +168,7 @@ const Navbar = ({ onOpenApply, onOpenContact, currentPage = 'home', onNavigate }
               className="text-base font-bold text-slate-800 hover:text-primary py-2 border-b border-slate-50 text-left w-full cursor-pointer flex items-center justify-between"
             >
               <span>Young Coders</span>
-              <span className="px-2 py-0.5 rounded-full bg-amber-400/20 text-amber-800 text-xs font-bold">Grade 1–12</span>
+              <span className="px-2 py-0.5 rounded-full bg-amber-400/20 text-amber-800 text-xs font-bold">Grade 1–14</span>
             </button>
 
             <button

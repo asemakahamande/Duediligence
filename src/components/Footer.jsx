@@ -1,46 +1,31 @@
 import React from 'react';
-import { Terminal, Mail, Phone, MapPin, ArrowRight } from 'lucide-react';
+import { Mail, Phone, MapPin } from 'lucide-react';
+import logoImage from '../assets/logo1.jpg';
 
 const Footer = ({ onOpenApply, onOpenContact, onNavigate }) => {
   return (
-    <footer className="bg-slate-900 text-slate-300 pt-12 sm:pt-14 pb-8" id="footer">
+    <footer className="bg-slate-900 text-slate-300 pt-10 pb-5 border-t border-slate-800" id="footer">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Top CTA section */}
-        <div className="bg-gradient-to-r from-primary to-blue-600 rounded-3xl p-6 sm:p-10 mb-12 text-white flex flex-col md:flex-row items-center justify-between shadow-2xl relative overflow-hidden">
-          <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
-          <div className="relative z-10 mb-6 md:mb-0 md:mr-8 text-center md:text-left">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2">Start Your Technology Journey</h2>
-            <p className="text-blue-100 text-base sm:text-lg max-w-xl">Learn a skill. Build your idea. Create your future. We are ready to work with you.</p>
-          </div>
-          <button 
-            onClick={onOpenContact}
-            className="relative z-10 whitespace-nowrap px-8 py-3.5 bg-white text-primary hover:bg-slate-100 font-bold rounded-full transition-all duration-300 shadow-lg flex items-center gap-2 cursor-pointer"
-          >
-            Contact Us Today
-            <ArrowRight size={20} />
-          </button>
-        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10 mb-10">
-          <div>
-            <div className="flex items-center gap-2 mb-6">
-              <Terminal size={28} className="text-primary" />
-              <span className="text-2xl font-bold text-white tracking-tight">Duediligence Technologies</span>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-10 mb-8">
+          <div className="lg:col-span-5">
+            <div className="flex items-center gap-3 mb-4">
+              <img src={logoImage} alt="Duediligence Technologies Logo" className="h-12 w-auto object-contain rounded-md bg-white p-1" />
+              <span className="text-xl font-bold text-white tracking-tight">Duediligence Technologies</span>
             </div>
-            <p className="text-slate-400 mb-6 max-w-md leading-relaxed text-sm">
-              We help people develop the skills to participate in the digital economy and help businesses use technology to solve problems, improve operations, and create future-ready solutions.
+            <p className="text-slate-400 mb-4 max-w-md leading-relaxed text-sm">
+              We help people build digital skills and help businesses use technology to solve problems and create future-ready solutions.
             </p>
-            <div className="flex gap-4">
-              <span className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary transition-colors cursor-pointer text-white text-sm font-bold">X</span>
-              <span className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary transition-colors cursor-pointer text-white text-sm font-bold">in</span>
-              <span className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary transition-colors cursor-pointer text-white text-sm font-bold">fb</span>
+            <div className="flex gap-3">
+              <span className="w-9 h-9 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary transition-colors cursor-pointer text-white text-sm font-bold">X</span>
+              <span className="w-9 h-9 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary transition-colors cursor-pointer text-white text-sm font-bold">in</span>
+              <span className="w-9 h-9 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary transition-colors cursor-pointer text-white text-sm font-bold">fb</span>
             </div>
           </div>
 
-          <div>
-            <h4 className="text-lg font-semibold text-white mb-6">Quick Links</h4>
-            <ul className="space-y-3 text-sm">
+          <div className="lg:col-span-3 lg:pl-8">
+            <h4 className="text-lg font-semibold text-white mb-3">Quick Links</h4>
+            <ul className="space-y-2 text-sm">
               <li>
                 <button 
                   onClick={() => {
@@ -83,7 +68,7 @@ const Footer = ({ onOpenApply, onOpenContact, onNavigate }) => {
                     if (onNavigate) onNavigate('young-coders');
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                   }} 
-                  className="hover:text-primary transition-colors cursor-pointer text-left flex items-center gap-1.5 text-amber-300"
+                  className="hover:text-primary transition-colors cursor-pointer text-left"
                 >
                   <span>Young Coders Academy</span>
                 </button>
@@ -107,30 +92,30 @@ const Footer = ({ onOpenApply, onOpenContact, onNavigate }) => {
             </ul>
           </div>
 
-          <div>
-            <h4 className="text-lg font-semibold text-white mb-6">Contact Info</h4>
-            <ul className="space-y-4">
+          <div className="lg:col-span-4">
+            <h4 className="text-lg font-semibold text-white mb-3">Contact Info</h4>
+            <ul className="space-y-3 text-sm">
               <li className="flex items-start gap-3">
-                <Mail size={20} className="text-amber-400 flex-shrink-0 mt-1" />
+                <Mail size={20} className="text-primary flex-shrink-0 mt-0.5" />
                 <span>hello@duediligence.tech</span>
               </li>
               <li className="flex items-start gap-3">
-                <Phone size={20} className="text-amber-400 flex-shrink-0 mt-1" />
+                <Phone size={20} className="text-primary flex-shrink-0 mt-0.5" />
                 <span>09039982165</span>
               </li>
               <li className="flex items-start gap-3">
-                <MapPin size={20} className="text-amber-400 flex-shrink-0 mt-1" />
+                <MapPin size={20} className="text-primary flex-shrink-0 mt-0.5" />
                 <span>123 Innovation Drive, Tech District</span>
               </li>
             </ul>
           </div>
         </div>
 
-        <div className="pt-8 border-t border-slate-800 text-center md:text-left flex flex-col md:flex-row justify-between items-center text-sm text-slate-500">
+        <div className="pt-5 border-t border-slate-800 text-center md:text-left flex flex-col md:flex-row justify-between items-center text-sm text-slate-500">
           <p>&copy; {new Date().getFullYear()} Duediligence Technologies. All rights reserved.</p>
           <div className="flex gap-6 mt-4 md:mt-0">
-            <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
+            <button onClick={() => { if (onNavigate) onNavigate('privacy'); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="hover:text-white transition-colors cursor-pointer">Privacy Policy</button>
+            <button onClick={() => { if (onNavigate) onNavigate('terms'); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="hover:text-white transition-colors cursor-pointer">Terms of Service</button>
           </div>
         </div>
       </div>
