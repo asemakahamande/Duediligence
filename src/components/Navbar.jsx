@@ -32,6 +32,9 @@ const Navbar = ({ onOpenApply, onOpenContact, currentPage = 'home', onNavigate }
     } else if (target === 'contact') {
       if (onNavigate) onNavigate('contact');
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (target === 'apply') {
+      if (onNavigate) onNavigate('apply');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     } else if (target === 'courses') {
       if (currentPage !== 'home' && onNavigate) {
         onNavigate('home');
@@ -219,7 +222,7 @@ const Navbar = ({ onOpenApply, onOpenContact, currentPage = 'home', onNavigate }
               <button 
                 onClick={() => {
                   setIsMobileMenuOpen(false);
-                  onOpenApply(currentPage === 'young-coders' ? 'thunkable-apps' : '');
+                  onOpenApply(currentPage === 'young-coders' ? 'scratch-coding' : '');
                 }}
                 className="w-full py-3 bg-primary hover:bg-primary-dark text-white font-bold rounded-lg transition-colors shadow-md cursor-pointer"
               >

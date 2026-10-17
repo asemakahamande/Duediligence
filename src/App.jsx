@@ -12,6 +12,7 @@ import WhatsAppChat from './components/WhatsAppChat';
 import LegalPage from './components/LegalPage';
 import CurriculumPage from './components/CurriculumPage';
 import ContactPage from './components/ContactPage';
+import ApplyPage from './components/ApplyPage';
 import CookieConsent from './components/CookieConsent';
 import './index.css';
 
@@ -19,8 +20,18 @@ function App() {
   const [currentPage, setCurrentPage] = useState('home');
   const [isApplyModalOpen, setIsApplyModalOpen] = useState(false);
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
-  const [selectedCourse, setSelectedCourse] = useState('');
-  const [selectedCurriculumCourse, setSelectedCurriculumCourse] = useState('software-engineering');
+  const [selectedCourse, setSelectedCourse] = useState(() => {
+    if (typeof window !== 'undefined' && window.location.hash.startsWith('#apply')) {
+      return window.location.hash.split('/')[1] || '';
+    }
+    return '';
+  });
+  const [selectedCurriculumCourse, setSelectedCurriculumCourse] = useState(() => {
+    if (typeof window !== 'undefined' && window.location.hash.startsWith('#curriculum')) {
+      return window.location.hash.split('/')[1] || '';
+    }
+    return '';
+  });
 
   // Handle URL hash changes
   useEffect(() => {
@@ -31,6 +42,14 @@ function App() {
         const parts = hash.split('/');
         if (parts[1]) {
           setSelectedCurriculumCourse(parts[1]);
+        } else {
+          setSelectedCurriculumCourse('');
+        }
+      } else if (hash.startsWith('#apply')) {
+        setCurrentPage('apply');
+        const parts = hash.split('/');
+        if (parts[1]) {
+          setSelectedCourse(parts[1]);
         }
       } else if (hash === '#contact') {
         setCurrentPage('contact');
@@ -57,6 +76,10 @@ function App() {
       handleOpenCurriculum(param);
       return;
     }
+    if (page === 'apply') {
+      handleOpenApply(param);
+      return;
+    }
     setCurrentPage(page);
     window.location.hash = page === 'home' ? '' : `#${page}`;
   };
@@ -66,6 +89,7 @@ function App() {
       setSelectedCurriculumCourse(courseId);
       window.location.hash = `#curriculum/${courseId}`;
     } else {
+      setSelectedCurriculumCourse('');
       window.location.hash = '#curriculum';
     }
     setCurrentPage('curriculum');
@@ -73,8 +97,14 @@ function App() {
   };
 
   const handleOpenApply = (courseId = '') => {
-    setSelectedCourse(courseId);
-    setIsApplyModalOpen(true);
+    setSelectedCourse(courseId || '');
+    if (courseId) {
+      window.location.hash = `#apply/${courseId}`;
+    } else {
+      window.location.hash = '#apply';
+    }
+    setCurrentPage('apply');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleCloseApply = () => {
@@ -101,6 +131,11 @@ function App() {
       <main className="flex-grow">
         {currentPage === 'privacy' || currentPage === 'terms' ? (
           <LegalPage type={currentPage} onNavigate={handleNavigate} />
+        ) : currentPage === 'apply' ? (
+          <ApplyPage 
+            initialCourseId={selectedCourse} 
+            onNavigate={handleNavigate} 
+          />
         ) : currentPage === 'contact' ? (
           <ContactPage 
             onNavigate={handleNavigate} 

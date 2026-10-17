@@ -124,19 +124,27 @@ const ContactPage = ({ onNavigate, onOpenApply }) => {
   const faqs = [
     {
       q: 'How fast do you respond to inquiries?',
-      a: 'Our admissions and student support team typically responds within 1 to 3 hours during working hours.'
+      a: 'Our admissions and student support team typically responds within 1 to 3 hours during active business hours.'
     },
     {
       q: 'Can I speak directly with an admissions advisor?',
-      a: 'Yes! You can call us directly at 09039982165 or chat with an advisor on WhatsApp for instant guidance.'
+      a: 'Yes! You can call us directly at 09039982165 or chat with an advisor on WhatsApp for instant 1:1 guidance.'
     },
     {
       q: 'Where do classes take place?',
-      a: 'We offer intensive live virtual training (with interactive labs and recordings) as well as hybrid physical sessions for cohorts.'
+      a: 'We offer intensive live virtual training with real-time screen sharing, interactive labs, and class recordings, as well as physical hub sessions.'
     },
     {
       q: 'Are payment installments available?',
-      a: 'Yes, we provide flexible installment payment options to make world-class tech education accessible.'
+      a: 'Yes, we provide flexible installment payment plans so that tuition is paid comfortably across the duration of your cohort.'
+    },
+    {
+      q: 'Will I receive a verified certificate upon completion?',
+      a: 'Yes, every graduate who successfully completes the coursework and capstone project receives a globally verifiable Certificate of Completion.'
+    },
+    {
+      q: 'Can I apply without prior coding or tech experience?',
+      a: 'Absolutely! Our tracks are carefully designed with foundational beginner modules that ramp you up to advanced production standards.'
     }
   ];
 
@@ -300,23 +308,6 @@ const ContactPage = ({ onNavigate, onOpenApply }) => {
                 <span>Submit Course Application</span>
                 <ArrowRight size={15} />
               </button>
-            </div>
-
-            {/* Frequently Asked Questions */}
-            <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-sm space-y-4">
-              <h3 className="text-base font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
-                <HelpCircle size={18} className="text-primary" />
-                <span>Frequently Asked Questions</span>
-              </h3>
-
-              <div className="space-y-3">
-                {faqs.map((faq, idx) => (
-                  <div key={idx} className="p-4 rounded-xl bg-slate-50 border border-slate-100">
-                    <h4 className="text-xs sm:text-sm font-bold text-slate-900 mb-1">{faq.q}</h4>
-                    <p className="text-xs text-slate-600 leading-relaxed">{faq.a}</p>
-                  </div>
-                ))}
-              </div>
             </div>
 
           </div>
@@ -540,6 +531,44 @@ const ContactPage = ({ onNavigate, onOpenApply }) => {
           </div>
 
         </div>
+
+        {/* Full-Width Frequently Asked Questions Section */}
+        <div className="mt-14 sm:mt-20 pt-12 border-t border-slate-200">
+          <div className="text-center max-w-2xl mx-auto mb-10">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider mb-2">
+              <HelpCircle size={14} />
+              <span>Common Questions</span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+              Frequently Asked Questions
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-600 mt-2">
+              Everything you need to know about reaching our admissions team, schedules, payment options, and training format.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
+            {faqs.map((faq, idx) => (
+              <div 
+                key={idx} 
+                className="p-6 rounded-2xl bg-white border border-slate-200/80 shadow-2xs hover:shadow-md hover:border-primary/40 transition-all flex flex-col justify-start"
+              >
+                <div className="flex items-start gap-3 mb-2">
+                  <span className="w-6 h-6 rounded-lg bg-blue-50 text-primary text-xs font-black flex items-center justify-center flex-shrink-0 mt-0.5">
+                    {idx + 1}
+                  </span>
+                  <h3 className="text-sm sm:text-base font-extrabold text-slate-900 leading-snug">
+                    {faq.q}
+                  </h3>
+                </div>
+                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed pl-9">
+                  {faq.a}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+
       </div>
 
     </div>
