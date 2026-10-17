@@ -10,6 +10,8 @@ import YoungCodersPage from './components/YoungCodersPage';
 import WhyDueDiligencePage from './components/WhyDueDiligencePage';
 import WhatsAppChat from './components/WhatsAppChat';
 import LegalPage from './components/LegalPage';
+import CurriculumPage from './components/CurriculumPage';
+import ContactPage from './components/ContactPage';
 import CookieConsent from './components/CookieConsent';
 import './index.css';
 
@@ -18,12 +20,21 @@ function App() {
   const [isApplyModalOpen, setIsApplyModalOpen] = useState(false);
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState('');
+  const [selectedCurriculumCourse, setSelectedCurriculumCourse] = useState('software-engineering');
 
   // Handle URL hash changes
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash;
-      if (hash === '#young-coders') {
+      if (hash.startsWith('#curriculum')) {
+        setCurrentPage('curriculum');
+        const parts = hash.split('/');
+        if (parts[1]) {
+          setSelectedCurriculumCourse(parts[1]);
+        }
+      } else if (hash === '#contact') {
+        setCurrentPage('contact');
+      } else if (hash === '#young-coders') {
         setCurrentPage('young-coders');
       } else if (hash === '#why-duediligence') {
         setCurrentPage('why-duediligence');
@@ -41,9 +52,24 @@ function App() {
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
 
-  const handleNavigate = (page) => {
+  const handleNavigate = (page, param = '') => {
+    if (page === 'curriculum') {
+      handleOpenCurriculum(param);
+      return;
+    }
     setCurrentPage(page);
     window.location.hash = page === 'home' ? '' : `#${page}`;
+  };
+
+  const handleOpenCurriculum = (courseId = '') => {
+    if (courseId) {
+      setSelectedCurriculumCourse(courseId);
+      window.location.hash = `#curriculum/${courseId}`;
+    } else {
+      window.location.hash = '#curriculum';
+    }
+    setCurrentPage('curriculum');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleOpenApply = (courseId = '') => {
@@ -56,7 +82,7 @@ function App() {
   };
 
   const handleOpenContact = () => {
-    setIsContactModalOpen(true);
+    handleNavigate('contact');
   };
 
   const handleCloseContact = () => {
@@ -75,14 +101,28 @@ function App() {
       <main className="flex-grow">
         {currentPage === 'privacy' || currentPage === 'terms' ? (
           <LegalPage type={currentPage} onNavigate={handleNavigate} />
+        ) : currentPage === 'contact' ? (
+          <ContactPage 
+            onNavigate={handleNavigate} 
+            onOpenApply={(courseId) => handleOpenApply(courseId)} 
+          />
         ) : currentPage === 'young-coders' ? (
           <YoungCodersPage 
             onOpenApply={(courseId) => handleOpenApply(courseId)}
             onNavigateHome={() => handleNavigate('home')}
+            onOpenCurriculum={handleOpenCurriculum}
+            onNavigate={handleNavigate}
           />
         ) : currentPage === 'why-duediligence' ? (
           <WhyDueDiligencePage 
             onOpenApply={(courseId) => handleOpenApply(courseId)}
+            onNavigate={handleNavigate}
+          />
+        ) : currentPage === 'curriculum' ? (
+          <CurriculumPage 
+            initialCourseId={selectedCurriculumCourse}
+            onOpenApply={(courseId) => handleOpenApply(courseId)}
+            onNavigateHome={() => handleNavigate('home')}
             onNavigate={handleNavigate}
           />
         ) : (
@@ -95,6 +135,7 @@ function App() {
             />
             <Services 
               onOpenApply={(courseId) => handleOpenApply(courseId)} 
+              onOpenCurriculum={handleOpenCurriculum}
             />
           </>
         )}

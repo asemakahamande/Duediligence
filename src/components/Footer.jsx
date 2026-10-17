@@ -65,6 +65,17 @@ const Footer = ({ onOpenApply, onOpenContact, onNavigate }) => {
               <li>
                 <button 
                   onClick={() => {
+                    if (onNavigate) onNavigate('curriculum');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }} 
+                  className="hover:text-primary transition-colors cursor-pointer text-left"
+                >
+                  Course Curriculums
+                </button>
+              </li>
+              <li>
+                <button 
+                  onClick={() => {
                     if (onNavigate) onNavigate('young-coders');
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                   }} 
@@ -75,7 +86,10 @@ const Footer = ({ onOpenApply, onOpenContact, onNavigate }) => {
               </li>
               <li>
                 <button 
-                  onClick={onOpenContact} 
+                  onClick={() => {
+                    if (onNavigate) onNavigate('contact');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }} 
                   className="hover:text-primary transition-colors cursor-pointer text-left"
                 >
                   Contact & Inquiries

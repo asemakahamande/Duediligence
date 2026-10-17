@@ -26,6 +26,12 @@ const Navbar = ({ onOpenApply, onOpenContact, currentPage = 'home', onNavigate }
     } else if (target === 'why-duediligence') {
       if (onNavigate) onNavigate('why-duediligence');
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (target === 'curriculum') {
+      if (onNavigate) onNavigate('curriculum');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (target === 'contact') {
+      if (onNavigate) onNavigate('contact');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     } else if (target === 'courses') {
       if (currentPage !== 'home' && onNavigate) {
         onNavigate('home');
@@ -91,6 +97,18 @@ const Navbar = ({ onOpenApply, onOpenContact, currentPage = 'home', onNavigate }
               </button>
 
               <button
+                onClick={() => handleNavClick('curriculum')}
+                className={`text-sm font-bold transition-colors relative group cursor-pointer ${
+                  currentPage === 'curriculum' ? 'text-primary' : 'text-slate-800 hover:text-primary'
+                }`}
+              >
+                Curriculums
+                <span className={`absolute -bottom-1 left-0 h-0.5 bg-primary transition-all duration-300 ${
+                  currentPage === 'curriculum' ? 'w-full' : 'w-0 group-hover:w-full'
+                }`}></span>
+              </button>
+
+              <button
                 onClick={() => handleNavClick('young-coders')}
                 className={`text-sm font-bold transition-all relative group cursor-pointer flex items-center gap-1.5 px-3 py-1 rounded-full ${
                   currentPage === 'young-coders'
@@ -103,11 +121,15 @@ const Navbar = ({ onOpenApply, onOpenContact, currentPage = 'home', onNavigate }
               </button>
 
               <button
-                onClick={onOpenContact}
-                className="text-sm font-bold text-slate-800 hover:text-primary transition-colors relative group cursor-pointer"
+                onClick={() => handleNavClick('contact')}
+                className={`text-sm font-bold transition-colors relative group cursor-pointer ${
+                  currentPage === 'contact' ? 'text-primary' : 'text-slate-800 hover:text-primary'
+                }`}
               >
                 Contact
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+                <span className={`absolute -bottom-1 left-0 h-0.5 bg-primary transition-all duration-300 ${
+                  currentPage === 'contact' ? 'w-full' : 'w-0 group-hover:w-full'
+                }`}></span>
               </button>
             </div>
             
@@ -164,6 +186,15 @@ const Navbar = ({ onOpenApply, onOpenContact, currentPage = 'home', onNavigate }
             </button>
 
             <button
+              onClick={() => handleNavClick('curriculum')}
+              className={`text-base font-bold block py-2 border-b border-slate-50 text-left w-full cursor-pointer ${
+                currentPage === 'curriculum' ? 'text-primary' : 'text-slate-800 hover:text-primary'
+              }`}
+            >
+              Curriculums & Syllabus
+            </button>
+
+            <button
               onClick={() => handleNavClick('young-coders')}
               className="text-base font-bold text-slate-800 hover:text-primary py-2 border-b border-slate-50 text-left w-full cursor-pointer flex items-center justify-between"
             >
@@ -172,11 +203,10 @@ const Navbar = ({ onOpenApply, onOpenContact, currentPage = 'home', onNavigate }
             </button>
 
             <button
-              onClick={() => {
-                setIsMobileMenuOpen(false);
-                onOpenContact();
-              }}
-              className="text-base font-bold text-slate-800 hover:text-primary block py-2 border-b border-slate-50 text-left w-full cursor-pointer"
+              onClick={() => handleNavClick('contact')}
+              className={`text-base font-bold block py-2 border-b border-slate-50 text-left w-full cursor-pointer ${
+                currentPage === 'contact' ? 'text-primary' : 'text-slate-800 hover:text-primary'
+              }`}
             >
               Contact
             </button>

@@ -18,19 +18,15 @@ import {
   GraduationCap
 } from 'lucide-react';
 import { youngCodersCourses, gradeGroups } from '../data/youngCodersData';
-import CurriculumModal from './CurriculumModal';
 import heroVideo from '../assets/video.mp4';
 
-const YoungCodersPage = ({ onOpenApply, onNavigateHome }) => {
-  const [activeCourse, setActiveCourse] = useState(null);
+const YoungCodersPage = ({ onOpenApply, onNavigateHome, onOpenCurriculum, onNavigate }) => {
   const [selectedGradeGroup, setSelectedGradeGroup] = useState('all');
 
   const handleOpenCurriculum = (course) => {
-    setActiveCourse(course);
-  };
-
-  const handleCloseCurriculum = () => {
-    setActiveCourse(null);
+    if (onOpenCurriculum) {
+      onOpenCurriculum(course.id);
+    }
   };
 
   const filteredCourses = selectedGradeGroup === 'all'
@@ -346,15 +342,6 @@ const YoungCodersPage = ({ onOpenApply, onNavigateHome }) => {
           </AnimatePresence>
         </div>
       </section>
-
-      {/* Curriculum Modal for Young Coders */}
-      <CurriculumModal
-        isOpen={!!activeCourse}
-        onClose={handleCloseCurriculum}
-        course={activeCourse}
-        onApply={(courseId) => onOpenApply(courseId)}
-        showCareerRoles={false}
-      />
     </div>
   );
 };

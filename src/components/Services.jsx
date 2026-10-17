@@ -11,17 +11,12 @@ import {
   Flame
 } from 'lucide-react';
 import { coursesData } from '../data/coursesData';
-import CurriculumModal from './CurriculumModal';
 
-const Services = ({ onOpenApply }) => {
-  const [activeCurriculumCourse, setActiveCurriculumCourse] = useState(null);
-
+const Services = ({ onOpenApply, onOpenCurriculum }) => {
   const handleOpenCurriculum = (course) => {
-    setActiveCurriculumCourse(course);
-  };
-
-  const handleCloseCurriculum = () => {
-    setActiveCurriculumCourse(null);
+    if (onOpenCurriculum) {
+      onOpenCurriculum(course.id);
+    }
   };
 
   return (
@@ -147,14 +142,6 @@ const Services = ({ onOpenApply }) => {
           })}
         </div>
       </div>
-
-      {/* Interactive Curriculum Detail Modal */}
-      <CurriculumModal
-        isOpen={!!activeCurriculumCourse}
-        onClose={handleCloseCurriculum}
-        course={activeCurriculumCourse}
-        onApply={(courseId) => onOpenApply(courseId)}
-      />
     </section>
   );
 };
