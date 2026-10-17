@@ -100,18 +100,6 @@ const Navbar = ({ onOpenApply, onOpenContact, currentPage = 'home', onNavigate }
               </button>
 
               <button
-                onClick={() => handleNavClick('curriculum')}
-                className={`text-sm font-bold transition-colors relative group cursor-pointer ${
-                  currentPage === 'curriculum' ? 'text-primary' : 'text-slate-800 hover:text-primary'
-                }`}
-              >
-                Curriculums
-                <span className={`absolute -bottom-1 left-0 h-0.5 bg-primary transition-all duration-300 ${
-                  currentPage === 'curriculum' ? 'w-full' : 'w-0 group-hover:w-full'
-                }`}></span>
-              </button>
-
-              <button
                 onClick={() => handleNavClick('young-coders')}
                 className={`text-sm font-bold transition-all relative group cursor-pointer flex items-center gap-1.5 px-3 py-1 rounded-full ${
                   currentPage === 'young-coders'
@@ -186,15 +174,6 @@ const Navbar = ({ onOpenApply, onOpenContact, currentPage = 'home', onNavigate }
               className="text-base font-bold text-slate-800 hover:text-primary block py-2 border-b border-slate-50 text-left w-full cursor-pointer"
             >
               Professional Courses
-            </button>
-
-            <button
-              onClick={() => handleNavClick('curriculum')}
-              className={`text-base font-bold block py-2 border-b border-slate-50 text-left w-full cursor-pointer ${
-                currentPage === 'curriculum' ? 'text-primary' : 'text-slate-800 hover:text-primary'
-              }`}
-            >
-              Curriculums & Syllabus
             </button>
 
             <button
