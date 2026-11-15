@@ -39,13 +39,13 @@ const courses = [
   })),
   ...youngCodersCourses.map(c => ({
     id: c.id,
-    name: `[Young Coders] ${c.title} (${c.gradeLevel || 'Grade 1 - 14'})`,
+    name: `[Young Coders] ${c.title} (${c.gradeLevel || 'Grade 1 - 12'})`,
     title: c.title,
     price: c.price,
     duration: c.duration,
-    level: c.gradeLevel || 'Grade 1 - 14',
+    level: c.gradeLevel || 'Grade 1 - 12',
     mode: c.mode,
-    category: 'Young Coders Academy (Grade 1-14)'
+    category: 'Young Coders Academy (Grade 1-12)'
   }))
 ];
 
@@ -74,13 +74,23 @@ const ApplyPage = ({ initialCourseId = '', onNavigate }) => {
   const [captchaToken, setCaptchaToken] = useState('');
 
   const selectedCourseObj = courses.find((c) => c.id === formData.course) || courses[0];
+  const isYoungCodersSelected = selectedCourseObj.category.includes('Young Coders');
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: type === 'checkbox' ? checked : value
-    }));
+    setFormData((prev) => {
+      const next = {
+        ...prev,
+        [name]: type === 'checkbox' ? checked : value
+      };
+      if (name === 'course') {
+        const nextCourse = courses.find((c) => c.id === value);
+        if (nextCourse && nextCourse.category.includes('Young Coders')) {
+          next.learningMode = 'Online (Virtual Live)';
+        }
+      }
+      return next;
+    });
     setError('');
   };
 
@@ -358,7 +368,7 @@ const ApplyPage = ({ initialCourseId = '', onNavigate }) => {
                           </option>
                         ))}
                       </optgroup>
-                      <optgroup label="🚀 Young Coders Academy (Grade 1–14)">
+                      <optgroup label="🚀 Young Coders Academy (Grade 1–12 • 100% Online)">
                         {courses.filter(c => c.category.includes('Young Coders')).map((c) => (
                           <option key={c.id} value={c.id}>
                             {c.name} — {c.price}
@@ -465,13 +475,17 @@ const ApplyPage = ({ initialCourseId = '', onNavigate }) => {
                         </label>
                         <select
                           name="learningMode"
-                          value={formData.learningMode}
+                          value={isYoungCodersSelected ? 'Online (Virtual Live)' : formData.learningMode}
                           onChange={handleChange}
                           className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-primary focus:ring-2 focus:ring-primary/20 text-sm font-medium transition-all outline-none bg-white cursor-pointer"
                         >
-                          <option value="Online (Virtual Live)">Online (Virtual Live + Interactive Labs)</option>
-                          <option value="Physical Training">Physical Hub Session</option>
-                          <option value="Hybrid (Virtual + Weekend Hub)">Hybrid (Virtual + Weekend Lab)</option>
+                          <option value="Online (Virtual Live)">Online (100% Virtual Live + Interactive Labs)</option>
+                          {!isYoungCodersSelected && (
+                            <>
+                              <option value="Physical Training">Physical Hub Session</option>
+                              <option value="Hybrid (Virtual + Weekend Hub)">Hybrid (Virtual + Weekend Lab)</option>
+                            </>
+                          )}
                         </select>
                       </div>
                     </div>

@@ -132,7 +132,7 @@ const ContactPage = ({ onNavigate, onOpenApply }) => {
     },
     {
       q: 'Where do classes take place?',
-      a: 'We offer intensive live virtual training with real-time screen sharing, interactive labs, and class recordings, as well as physical hub sessions.'
+      a: 'All Young Coders Academy classes are 100% live online with interactive virtual labs. For adult professional tracks, we offer intensive live virtual training with real-time screen sharing and class recordings, as well as physical hub sessions.'
     },
     {
       q: 'Are payment installments available?',

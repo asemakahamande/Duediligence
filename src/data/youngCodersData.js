@@ -33,7 +33,7 @@ export const youngCodersCourses = [
     color: 'from-amber-500 to-orange-600',
     duration: '8 Weeks',
     level: 'Beginner (Absolute Starter)',
-    mode: 'Fun Live Workshops & Game Jams',
+    mode: '100% Live Online (Virtual Workshops & Game Jams)',
     price: '₦70,000 ($140)',
     modernNeed: 'Developed by MIT, Scratch is the premier coding platform for students in Grade 1 to 3. It builds foundational algorithmic thinking, problem-solving stamina, and mathematical creativity through colourful visual blocks without typing frustration.',
     whatKidsLearn: [
@@ -85,7 +85,7 @@ export const youngCodersCourses = [
   {
     id: 'game-app-dev',
     title: 'Game & Mobile App Development',
-    tagline: 'Build Real Games, Mobile Apps & Code Smart Physical Gadgets',
+    tagline: 'Build Real Games, Mobile Apps & Code Smart Virtual Gadgets',
     gradeLevel: 'Grade 4 - 5',
     gradeGroup: 'Grade 4-5',
     ageRange: 'Ages 9 - 10',
@@ -95,18 +95,18 @@ export const youngCodersCourses = [
     color: 'from-pink-500 to-rose-600',
     duration: '10 Weeks',
     level: 'Beginner Friendly (No Prior Experience)',
-    mode: 'Interactive Live Online, App Labs & Hardware Simulations',
+    mode: '100% Live Online (Virtual App Labs & Simulations)',
     price: '₦85,000 ($170)',
-    modernNeed: 'Grade 4 to 5 students are ready to go beyond block animations into creating real mobile apps and programming physical gadgets. This track blends mobile UI design using Thunkable with hands-on physical computing using BBC Micro:bit, giving learners two powerful creative superpowers.',
+    modernNeed: 'Grade 4 to 5 students are ready to go beyond block animations into creating real mobile apps and programming smart gadgets online. This 100% online track blends mobile UI design using Thunkable with virtual BBC Micro:bit simulations, giving learners two powerful creative superpowers from home.',
     whatKidsLearn: [
       'Advanced Scratch, programming logic and variables',
       'Conditions, loops, functions and UI design',
       'Visual drag-and-drop mobile app design',
       'Connecting phone sensors (Camera, Location, Accelerometer)',
       'Mobile app concepts and publishing to devices',
-      'Programming BBC Micro:bit microcontrollers',
-      'Reading temperature, light, motion and compass sensors',
-      'Building smart alarms, digital gadgets and robotic controllers'
+      'Programming BBC Micro:bit in online virtual simulators',
+      'Simulating temperature, light, motion and compass sensors',
+      'Building smart alarms, digital gadgets and virtual robotic controllers'
     ],
     tools: ['Scratch', 'Code.org', 'Thunkable', 'MIT App Inventor', 'Microsoft MakeCode', 'BBC Micro:bit Simulator', 'Tinkercad Circuits'],
     projects: [
@@ -143,22 +143,22 @@ export const youngCodersCourses = [
       {
         module: 'Module 5',
         title: 'Introduction to Micro:bit & LED Matrix Displays',
-        description: 'Hardware overview, programming scrolling text, icons, animations, and button inputs on physical devices.'
+        description: 'Virtual hardware overview, programming scrolling text, icons, animations, and button inputs in the online simulator.'
       },
       {
         module: 'Module 6',
         title: 'Sensors: Light, Temperature & Motion Detection',
-        description: 'Reading environmental sensors, building digital thermometers, pedometers, and shake-activated dice.'
+        description: 'Simulating environmental sensors, building digital thermometers, pedometers, and shake-activated dice online.'
       },
       {
         module: 'Module 7',
         title: 'Radio Signals, Motors & Sound Synthesizers',
-        description: 'Sending wireless messages between Micro:bit devices, generating musical tunes, and controlling servo motors.'
+        description: 'Simulating wireless messages between virtual Micro:bit devices, generating musical tunes, and controlling virtual servo motors.'
       },
       {
         module: 'Capstone Project',
-        title: 'Mobile App + Smart Gadget Showcase',
-        description: 'Build a complete mobile app AND program a physical Micro:bit smart gadget to present as a complete digital project portfolio.'
+        title: 'Mobile App + Smart Virtual Gadget Showcase',
+        description: 'Build a complete mobile app AND program a simulated Micro:bit smart gadget online to present as a complete digital project portfolio.'
       }
     ]
   },
@@ -175,7 +175,7 @@ export const youngCodersCourses = [
     color: 'from-violet-500 to-indigo-600',
     duration: '12 Weeks',
     level: 'Beginner to Intermediate',
-    mode: 'Live Coding, 3D Studio Labs & AI Workshops',
+    mode: '100% Live Online (Coding, 3D Studio & AI Labs)',
     price: '₦95,000 ($190)',
     modernNeed: 'Students in Grade 6 to 8 are entering the age of real-world software creation. This combined track teaches web fundamentals (HTML, CSS, JavaScript), 3D game scripting in Roblox Studio with Lua, and how AI learns from data. Learners graduate able to build websites, games and smart applications.',
     whatKidsLearn: [
@@ -257,7 +257,7 @@ export const youngCodersCourses = [
     color: 'from-emerald-500 to-teal-600',
     duration: '16 Weeks',
     level: 'Beginner to Advanced',
-    mode: 'Live Coding Workshops, AI Labs & Project Sprints',
+    mode: '100% Live Online (Workshops, AI Labs & Sprints)',
     price: '₦100,000 ($200)',
     modernNeed: "Python is the world's most popular programming language, powering Google, Netflix, NASA and every major AI system. Grade 9 to 12 students master Python from scratch, then progress into Object-Oriented Programming, APIs, databases, data analysis, and cutting-edge Machine Learning and AI application development.",
     whatKidsLearn: [

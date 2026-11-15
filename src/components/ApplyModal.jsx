@@ -22,10 +22,10 @@ const courses = [
   })),
   ...youngCodersCourses.map(c => ({
     id: c.id,
-    name: `[Young Coders] ${c.title} (${c.gradeLevel || 'Grade 1 - 14'})`,
+    name: `[Young Coders] ${c.title} (${c.gradeLevel || 'Grade 1 - 12'})`,
     price: c.price,
     duration: c.duration,
-    category: 'Young Coders Academy (Grade 1-14)'
+    category: 'Young Coders Academy (Grade 1-12)'
   }))
 ];
 
@@ -54,13 +54,23 @@ const ApplyModal = ({ isOpen, onClose, defaultCourse = '' }) => {
   const [captchaToken, setCaptchaToken] = useState('');
 
   const selectedCourseObj = courses.find((c) => c.id === formData.course) || courses[0];
+  const isYoungCodersSelected = selectedCourseObj.category.includes('Young Coders');
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: type === 'checkbox' ? checked : value
-    }));
+    setFormData((prev) => {
+      const next = {
+        ...prev,
+        [name]: type === 'checkbox' ? checked : value
+      };
+      if (name === 'course') {
+        const nextCourse = courses.find((c) => c.id === value);
+        if (nextCourse && nextCourse.category.includes('Young Coders')) {
+          next.learningMode = 'Online (Virtual Live)';
+        }
+      }
+      return next;
+    });
     setError('');
   };
 
@@ -327,13 +337,17 @@ const ApplyModal = ({ isOpen, onClose, defaultCourse = '' }) => {
                     </label>
                     <select
                       name="learningMode"
-                      value={formData.learningMode}
+                      value={isYoungCodersSelected ? 'Online (Virtual Live)' : formData.learningMode}
                       onChange={handleChange}
                       className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:bg-white transition-all text-slate-900"
                     >
                       <option value="Online (Virtual Live)">Online (Virtual Live)</option>
-                      <option value="In-Person Campus">In-Person Campus</option>
-                      <option value="Weekend Cohort">Weekend Cohort</option>
+                      {!isYoungCodersSelected && (
+                        <>
+                          <option value="In-Person Campus">In-Person Campus</option>
+                          <option value="Weekend Cohort">Weekend Cohort</option>
+                        </>
+                      )}
                     </select>
                   </div>
                 </div>

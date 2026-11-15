@@ -71,7 +71,7 @@ const YoungCodersPage = ({ onOpenApply, onNavigateHome, onOpenCurriculum, onNavi
           >
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/20 border border-primary/40 text-blue-300 text-xs sm:text-sm font-bold uppercase tracking-wider mb-5">
               <Sparkles size={16} className="text-amber-400" />
-              <span>Young Coders Academy • Grade 1 - 12 Pathways</span>
+              <span>Young Coders Academy • 100% Live Online • Grade 1 - 12</span>
             </div>
 
             <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white mb-6 max-w-4xl mx-auto leading-tight">
@@ -124,8 +124,8 @@ const YoungCodersPage = ({ onOpenApply, onNavigateHome, onOpenCurriculum, onNavi
             <div className="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/10">
               <ShieldCheck className="text-emerald-400 flex-shrink-0" size={24} />
               <div>
-                <p className="text-xs text-slate-400 font-medium">Environment</p>
-                <p className="text-xs sm:text-sm font-bold text-white">Safe & Child-Friendly</p>
+                <p className="text-xs text-slate-400 font-medium">Delivery Format</p>
+                <p className="text-xs sm:text-sm font-bold text-white">100% Live Online</p>
               </div>
             </div>
           </div>
@@ -310,10 +310,15 @@ const YoungCodersPage = ({ onOpenApply, onNavigateHome, onOpenCurriculum, onNavi
 
                       {/* Meta Info */}
                       <div className="pt-3.5 border-t border-slate-100 mt-auto flex items-center justify-between text-xs text-slate-500">
-                        <span className="flex items-center gap-1">
-                          <Clock size={13} className="text-primary" />
-                          {course.duration}
-                        </span>
+                        <div className="flex items-center gap-2">
+                          <span className="flex items-center gap-1">
+                            <Clock size={13} className="text-primary" />
+                            {course.duration}
+                          </span>
+                          <span className="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 font-bold text-[10px]">
+                            100% Online
+                          </span>
+                        </div>
                         <span className="font-extrabold text-slate-900">{course.price}</span>
                       </div>
                     </div>
