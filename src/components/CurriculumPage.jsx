@@ -502,6 +502,11 @@ const CurriculumPage = ({
                 <div className="text-3xl font-black text-slate-900 mb-1">
                   {currentCourse.price}
                 </div>
+                {currentCourse.weeklyRate && (
+                  <p className="text-xs font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-3 py-1.5 rounded-xl mb-3 inline-block">
+                    {currentCourse.weeklyRate} • {currentCourse.weeklySchedule}
+                  </p>
+                )}
                 <p className="text-xs text-slate-500 mb-6">
                   Flexible installment payment plans available. Fully mentored with live project defense.
                 </p>
@@ -821,7 +826,12 @@ const CurriculumPage = ({
                     {/* Tuition & Actions */}
                     <div className="pt-4 border-t border-slate-100">
                       <div className="flex items-center justify-between mb-3">
-                        <span className="text-xs text-slate-500 font-semibold">Tuition:</span>
+                        <div>
+                          <span className="text-xs text-slate-500 font-semibold block">Full Course Tuition:</span>
+                          {course.weeklyRate && (
+                            <span className="text-[11px] text-emerald-600 font-bold">{course.weeklyRate} (2 hrs/wk)</span>
+                          )}
+                        </div>
                         <span className="text-base font-black text-slate-900">{course.price}</span>
                       </div>
 

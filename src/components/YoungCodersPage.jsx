@@ -309,17 +309,32 @@ const YoungCodersPage = ({ onOpenApply, onNavigateHome, onOpenCurriculum, onNavi
                       </div>
 
                       {/* Meta Info */}
-                      <div className="pt-3.5 border-t border-slate-100 mt-auto flex items-center justify-between text-xs text-slate-500">
-                        <div className="flex items-center gap-2">
-                          <span className="flex items-center gap-1">
-                            <Clock size={13} className="text-primary" />
+                      <div className="pt-3.5 border-t border-slate-100 mt-auto space-y-2 text-xs text-slate-500">
+                        <div className="flex items-center justify-between gap-2">
+                          <span className="flex items-center gap-1 font-semibold text-slate-700">
+                            <Clock size={13} className="text-primary flex-shrink-0" />
                             {course.duration}
                           </span>
                           <span className="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 font-bold text-[10px]">
                             100% Online
                           </span>
                         </div>
-                        <span className="font-extrabold text-slate-900">{course.price}</span>
+                        <div className="flex items-center justify-between gap-2 bg-slate-50 px-3 py-2 rounded-xl border border-slate-100">
+                          <div>
+                            <span className="block text-[10px] uppercase tracking-wider text-slate-400 font-bold">
+                              {course.weeklySchedule || '2 Hrs / Week'}
+                            </span>
+                            <span className="text-[11px] font-semibold text-slate-600">
+                              {course.weeklyRate || '₦4,000 ($2.50) / wk'}
+                            </span>
+                          </div>
+                          <div className="text-right">
+                            <span className="block text-[10px] uppercase tracking-wider text-primary font-bold">
+                              Full Course ({course.totalHours || course.duration})
+                            </span>
+                            <span className="text-sm font-black text-slate-900">{course.price}</span>
+                          </div>
+                        </div>
                       </div>
                     </div>
 
