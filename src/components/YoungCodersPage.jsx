@@ -325,7 +325,7 @@ const YoungCodersPage = ({ onOpenApply, onNavigateHome, onOpenCurriculum, onNavi
                               {course.weeklySchedule || '2 Hrs / Week'}
                             </span>
                             <span className="text-[11px] font-semibold text-slate-600">
-                              {course.weeklyRate || '₦8,000 ($5) / wk'}
+                              {course.weeklyRate || '₦7,000 ($4.50) / wk'}
                             </span>
                           </div>
                           <div className="text-right">
