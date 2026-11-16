@@ -22,7 +22,8 @@ import {
   Search,
   Filter,
   Flame,
-  Award
+  Award,
+  Calendar
 } from 'lucide-react';
 import { coursesData } from '../data/coursesData';
 import { youngCodersCourses } from '../data/youngCodersData';
@@ -30,6 +31,7 @@ import { youngCodersCourses } from '../data/youngCodersData';
 const CurriculumPage = ({ 
   initialCourseId = '', 
   onOpenApply, 
+  onOpenTrial,
   onNavigateHome, 
   onNavigate 
 }) => {
@@ -512,6 +514,16 @@ const CurriculumPage = ({
                 </p>
 
                 <div className="space-y-3 mb-6">
+                  {isYoungCoders && (
+                    <button
+                      onClick={() => onOpenTrial && onOpenTrial(currentCourse.id)}
+                      className="w-full py-3.5 px-6 rounded-2xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold text-sm shadow-md hover:shadow-xl transition-all flex items-center justify-center gap-2 cursor-pointer"
+                    >
+                      <Calendar size={17} />
+                      <span>Book a Trial Class</span>
+                    </button>
+                  )}
+
                   <button
                     onClick={() => onOpenApply(currentCourse.id)}
                     className="w-full py-3.5 px-6 rounded-2xl bg-primary hover:bg-primary-dark text-white font-extrabold text-sm shadow-md hover:shadow-xl transition-all flex items-center justify-center gap-2 cursor-pointer group"
@@ -834,6 +846,16 @@ const CurriculumPage = ({
                         </div>
                         <span className="text-base font-black text-slate-900">{course.price}</span>
                       </div>
+
+                      {isYoung && (
+                        <button
+                          onClick={() => onOpenTrial && onOpenTrial(course.id)}
+                          className="w-full mb-2.5 py-2.5 px-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold text-xs sm:text-sm shadow-sm hover:shadow-md transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+                        >
+                          <Calendar size={15} />
+                          <span>Book a Trial Class</span>
+                        </button>
+                      )}
 
                       <div className="flex items-center gap-2.5">
                         <button

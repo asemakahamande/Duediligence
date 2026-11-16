@@ -13,6 +13,7 @@ import LegalPage from './components/LegalPage';
 import CurriculumPage from './components/CurriculumPage';
 import ContactPage from './components/ContactPage';
 import ApplyPage from './components/ApplyPage';
+import TrialClassPage from './components/TrialClassPage';
 import CookieConsent from './components/CookieConsent';
 import './index.css';
 
@@ -28,6 +29,12 @@ function App() {
   });
   const [selectedCurriculumCourse, setSelectedCurriculumCourse] = useState(() => {
     if (typeof window !== 'undefined' && window.location.hash.startsWith('#curriculum')) {
+      return window.location.hash.split('/')[1] || '';
+    }
+    return '';
+  });
+  const [selectedTrialCourse, setSelectedTrialCourse] = useState(() => {
+    if (typeof window !== 'undefined' && window.location.hash.startsWith('#trial')) {
       return window.location.hash.split('/')[1] || '';
     }
     return '';
@@ -50,6 +57,14 @@ function App() {
         const parts = hash.split('/');
         if (parts[1]) {
           setSelectedCourse(parts[1]);
+        }
+      } else if (hash.startsWith('#trial')) {
+        setCurrentPage('trial');
+        const parts = hash.split('/');
+        if (parts[1]) {
+          setSelectedTrialCourse(parts[1]);
+        } else {
+          setSelectedTrialCourse('');
         }
       } else if (hash === '#contact') {
         setCurrentPage('contact');
@@ -80,8 +95,23 @@ function App() {
       handleOpenApply(param);
       return;
     }
+    if (page === 'trial') {
+      handleOpenTrial(param);
+      return;
+    }
     setCurrentPage(page);
     window.location.hash = page === 'home' ? '' : `#${page}`;
+  };
+
+  const handleOpenTrial = (courseId = '') => {
+    setSelectedTrialCourse(courseId || '');
+    if (courseId) {
+      window.location.hash = `#trial/${courseId}`;
+    } else {
+      window.location.hash = '#trial';
+    }
+    setCurrentPage('trial');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleOpenCurriculum = (courseId = '') => {
@@ -136,6 +166,12 @@ function App() {
             initialCourseId={selectedCourse} 
             onNavigate={handleNavigate} 
           />
+        ) : currentPage === 'trial' ? (
+          <TrialClassPage
+            initialCourseId={selectedTrialCourse}
+            onNavigate={handleNavigate}
+            onOpenApply={(courseId) => handleOpenApply(courseId)}
+          />
         ) : currentPage === 'contact' ? (
           <ContactPage 
             onNavigate={handleNavigate} 
@@ -144,6 +180,7 @@ function App() {
         ) : currentPage === 'young-coders' ? (
           <YoungCodersPage 
             onOpenApply={(courseId) => handleOpenApply(courseId)}
+            onOpenTrial={(courseId) => handleOpenTrial(courseId)}
             onNavigateHome={() => handleNavigate('home')}
             onOpenCurriculum={handleOpenCurriculum}
             onNavigate={handleNavigate}
@@ -157,6 +194,7 @@ function App() {
           <CurriculumPage 
             initialCourseId={selectedCurriculumCourse}
             onOpenApply={(courseId) => handleOpenApply(courseId)}
+            onOpenTrial={(courseId) => handleOpenTrial(courseId)}
             onNavigateHome={() => handleNavigate('home')}
             onNavigate={handleNavigate}
           />

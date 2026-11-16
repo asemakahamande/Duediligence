@@ -15,12 +15,13 @@ import {
   Lightbulb,
   HeartHandshake,
   Layers,
-  GraduationCap
+  GraduationCap,
+  Calendar
 } from 'lucide-react';
 import { youngCodersCourses, gradeGroups } from '../data/youngCodersData';
 import heroVideo from '../assets/video.mp4';
 
-const YoungCodersPage = ({ onOpenApply, onNavigateHome, onOpenCurriculum, onNavigate }) => {
+const YoungCodersPage = ({ onOpenApply, onOpenTrial, onNavigateHome, onOpenCurriculum, onNavigate }) => {
   const [selectedGradeGroup, setSelectedGradeGroup] = useState('all');
 
   const handleOpenCurriculum = (course) => {
@@ -83,6 +84,13 @@ const YoungCodersPage = ({ onOpenApply, onNavigateHome, onOpenCurriculum, onNavi
             </p>
 
             <div className="flex flex-wrap items-center justify-center gap-4">
+              <button
+                onClick={() => onOpenTrial && onOpenTrial('scratch-coding')}
+                className="px-8 py-3.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black rounded-xl shadow-[0_0_25px_rgba(245,158,11,0.5)] hover:shadow-[0_0_35px_rgba(245,158,11,0.8)] transition-all hover:scale-105 cursor-pointer text-sm uppercase tracking-wider flex items-center gap-2"
+              >
+                <Calendar size={17} />
+                <span>Book a Trial Class</span>
+              </button>
               <button
                 onClick={() => onOpenApply('scratch-coding')}
                 className="px-8 py-3.5 bg-primary hover:bg-primary-dark text-white font-bold rounded-xl shadow-[0_0_25px_rgba(5,111,236,0.5)] hover:shadow-[0_0_35px_rgba(5,111,236,0.8)] transition-all hover:scale-105 cursor-pointer text-sm uppercase tracking-wider"
@@ -339,21 +347,30 @@ const YoungCodersPage = ({ onOpenApply, onNavigateHome, onOpenCurriculum, onNavi
                     </div>
 
                     {/* Actions */}
-                    <div className="p-4 bg-slate-50 border-t border-slate-100 flex items-center gap-3">
+                    <div className="p-4 bg-slate-50 border-t border-slate-100 space-y-2.5">
                       <button
-                        onClick={() => handleOpenCurriculum(course)}
-                        className="flex-1 py-2.5 px-3 rounded-xl border border-slate-300 hover:border-primary text-slate-700 hover:text-primary font-bold text-xs bg-white transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+                        onClick={() => onOpenTrial && onOpenTrial(course.id)}
+                        className="w-full py-2.5 px-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold text-xs shadow-sm hover:shadow-md transition-all flex items-center justify-center gap-1.5 cursor-pointer"
                       >
-                        <BookOpen size={14} />
-                        <span>Curriculum</span>
+                        <Calendar size={14} />
+                        <span>Book a Trial Class</span>
                       </button>
-                      <button
-                        onClick={() => onOpenApply(course.id)}
-                        className="flex-1 py-2.5 px-3 rounded-xl bg-primary hover:bg-primary-dark text-white font-bold text-xs shadow-sm hover:shadow-md transition-all flex items-center justify-center gap-1.5 cursor-pointer"
-                      >
-                        <span>Enroll Child</span>
-                        <ArrowRight size={14} />
-                      </button>
+                      <div className="flex items-center gap-2.5">
+                        <button
+                          onClick={() => handleOpenCurriculum(course)}
+                          className="flex-1 py-2.5 px-3 rounded-xl border border-slate-300 hover:border-primary text-slate-700 hover:text-primary font-bold text-xs bg-white transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+                        >
+                          <BookOpen size={14} />
+                          <span>Curriculum</span>
+                        </button>
+                        <button
+                          onClick={() => onOpenApply(course.id)}
+                          className="flex-1 py-2.5 px-3 rounded-xl bg-primary hover:bg-primary-dark text-white font-bold text-xs shadow-sm hover:shadow-md transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+                        >
+                          <span>Enroll Child</span>
+                          <ArrowRight size={14} />
+                        </button>
+                      </div>
                     </div>
                   </motion.div>
                 );
