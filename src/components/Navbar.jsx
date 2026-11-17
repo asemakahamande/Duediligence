@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Phone, Sparkles } from 'lucide-react';
+import { Menu, X, Phone, Sparkles, Moon, Sun } from 'lucide-react';
 import logoImage from '../assets/logo1.jpg';
 
-const Navbar = ({ onOpenApply, onOpenContact, currentPage = 'home', onNavigate }) => {
+const Navbar = ({ onOpenApply, onOpenContact, currentPage = 'home', onNavigate, darkMode = false, onToggleDarkMode }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -125,6 +125,20 @@ const Navbar = ({ onOpenApply, onOpenContact, currentPage = 'home', onNavigate }
             </div>
             
             <div className="flex items-center gap-4">
+              {/* Dark Mode Toggle Icon in between Contact and Phone Number */}
+              <button
+                onClick={onToggleDarkMode}
+                aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+                title={darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+                className="p-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 hover:text-primary transition-all duration-200 cursor-pointer border border-slate-200"
+              >
+                {darkMode ? (
+                  <Sun size={18} className="text-amber-400" />
+                ) : (
+                  <Moon size={18} className="text-slate-700" />
+                )}
+              </button>
+
               <div className="flex items-center gap-2 text-sm font-bold text-slate-800">
                 <Phone size={16} className="text-primary" />
                 <span>+234 9039982165</span>
@@ -138,8 +152,20 @@ const Navbar = ({ onOpenApply, onOpenContact, currentPage = 'home', onNavigate }
             </div>
           </div>
 
-          {/* Mobile Menu Button */}
-          <div className="lg:hidden flex items-center">
+          {/* Mobile Menu & Dark Mode Buttons */}
+          <div className="lg:hidden flex items-center gap-2">
+            <button
+              onClick={onToggleDarkMode}
+              aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+              title={darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+              className="p-2 rounded-xl bg-slate-100 text-slate-800 hover:text-primary transition-colors cursor-pointer border border-slate-200"
+            >
+              {darkMode ? (
+                <Sun size={20} className="text-amber-400" />
+              ) : (
+                <Moon size={20} className="text-slate-700" />
+              )}
+            </button>
             <button 
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="text-slate-900 hover:text-primary transition-colors p-2"
@@ -191,6 +217,14 @@ const Navbar = ({ onOpenApply, onOpenContact, currentPage = 'home', onNavigate }
               }`}
             >
               Contact
+            </button>
+
+            <button
+              onClick={onToggleDarkMode}
+              className="text-base font-bold py-2 border-b border-slate-50 text-left w-full cursor-pointer flex items-center justify-between text-slate-800 hover:text-primary"
+            >
+              <span>{darkMode ? 'Light Mode' : 'Dark Mode'}</span>
+              {darkMode ? <Sun size={18} className="text-amber-400" /> : <Moon size={18} className="text-primary" />}
             </button>
 
             <div className="pt-2 flex flex-col space-y-3">

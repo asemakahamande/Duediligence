@@ -19,6 +19,13 @@ import './index.css';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
+  const [darkMode, setDarkMode] = useState(() => {
+    try {
+      return localStorage.getItem('dd_dark_mode') === 'true';
+    } catch {
+      return false;
+    }
+  });
   const [isApplyModalOpen, setIsApplyModalOpen] = useState(false);
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState(() => {
@@ -39,6 +46,24 @@ function App() {
     }
     return '';
   });
+
+  useEffect(() => {
+    const root = document.documentElement;
+    if (darkMode) {
+      root.classList.add('dark');
+    } else {
+      root.classList.remove('dark');
+    }
+    try {
+      localStorage.setItem('dd_dark_mode', String(darkMode));
+    } catch {
+      /* ignore storage errors */
+    }
+  }, [darkMode]);
+
+  const handleToggleDarkMode = () => {
+    setDarkMode((prev) => !prev);
+  };
 
   // Handle URL hash changes
   useEffect(() => {
@@ -150,12 +175,14 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen font-sans bg-white flex flex-col justify-between">
+    <div className="min-h-screen font-sans bg-white flex flex-col justify-between transition-colors duration-300">
       <Navbar 
         currentPage={currentPage}
         onNavigate={handleNavigate}
         onOpenApply={(courseId) => handleOpenApply(courseId)} 
         onOpenContact={handleOpenContact}
+        darkMode={darkMode}
+        onToggleDarkMode={handleToggleDarkMode}
       />
 
       <main className="flex-grow">
