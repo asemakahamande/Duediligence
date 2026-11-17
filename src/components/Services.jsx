@@ -60,10 +60,15 @@ const Services = ({ onOpenApply, onOpenCurriculum }) => {
                     <div className="w-14 h-14 rounded-2xl bg-blue-50 border border-blue-100 text-primary flex items-center justify-center group-hover:scale-110 group-hover:bg-primary group-hover:text-white transition-all duration-300 shadow-xs">
                       <IconComponent size={28} />
                     </div>
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-slate-100 border border-slate-200 text-slate-700 text-xs font-semibold rounded-full">
-                      <Clock size={12} className="text-primary" />
-                      {course.duration}
-                    </span>
+                    <div className="flex flex-col items-end gap-1">
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-slate-100 border border-slate-200 text-slate-700 text-xs font-semibold rounded-full">
+                        <Clock size={12} className="text-primary" />
+                        {course.duration}
+                      </span>
+                      <span className="text-xs font-extrabold text-primary pr-1">
+                        {course.price}
+                      </span>
+                    </div>
                   </div>
 
                   {/* Course Title & Tagline */}
