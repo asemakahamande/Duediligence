@@ -127,7 +127,7 @@ const Navbar = ({ onOpenApply, onOpenContact, currentPage = 'home', onNavigate }
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-2 text-sm font-bold text-slate-800">
                 <Phone size={16} className="text-primary" />
-                <span>09039982165</span>
+                <span>+234 9039982165</span>
               </div>
               <button 
                 onClick={() => onOpenApply(currentPage === 'young-coders' ? 'thunkable-apps' : '')}
@@ -196,7 +196,7 @@ const Navbar = ({ onOpenApply, onOpenContact, currentPage = 'home', onNavigate }
             <div className="pt-2 flex flex-col space-y-3">
               <div className="flex items-center justify-center gap-2 py-1 text-sm font-bold text-slate-800">
                 <Phone size={16} className="text-primary" />
-                <span>Call us: 09039982165</span>
+                <span>Call us: +234 9039982165</span>
               </div>
               <button 
                 onClick={() => {

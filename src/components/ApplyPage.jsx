@@ -654,11 +654,11 @@ const ApplyPage = ({ initialCourseId = '', onNavigate }) => {
                 </a>
 
                 <a
-                  href="tel:09039982165"
+                  href="tel:+2349039982165"
                   className="w-full py-2.5 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white font-bold text-xs border border-slate-700 transition-all flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <Phone size={15} />
-                  <span>Call: 09039982165</span>
+                  <span>Call: +234 9039982165</span>
                 </a>
               </div>
             </div>

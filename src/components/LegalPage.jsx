@@ -2,7 +2,7 @@ import React from 'react';
 import { ShieldCheck, FileText } from 'lucide-react';
 
 const EMAIL = 'hello@duediligence.tech';
-const PHONE = '09039982165';
+const PHONE = '+234 9039982165';
 const UPDATED = 'October 2026';
 
 const privacy = {

@@ -128,7 +128,7 @@ const ContactPage = ({ onNavigate, onOpenApply }) => {
     },
     {
       q: 'Can I speak directly with an admissions advisor?',
-      a: 'Yes! You can call us directly at 09039982165 or chat with an advisor on WhatsApp for instant 1:1 guidance.'
+      a: 'Yes! You can call us directly at +234 9039982165 or chat with an advisor on WhatsApp for instant 1:1 guidance.'
     },
     {
       q: 'Where do classes take place?',
@@ -221,7 +221,7 @@ const ContactPage = ({ onNavigate, onOpenApply }) => {
               <div className="space-y-4">
                 {/* Phone */}
                 <a 
-                  href="tel:09039982165"
+                  href="tel:+2349039982165"
                   className="flex items-start gap-4 p-4 rounded-2xl bg-slate-50 hover:bg-blue-50/60 border border-slate-200/80 hover:border-primary/40 transition-all group"
                 >
                   <div className="w-12 h-12 rounded-xl bg-blue-100/70 text-primary flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
@@ -230,7 +230,7 @@ const ContactPage = ({ onNavigate, onOpenApply }) => {
                   <div>
                     <span className="text-xs font-bold text-slate-500 uppercase tracking-wider block">Phone & Hotline</span>
                     <span className="text-base font-extrabold text-slate-900 group-hover:text-primary transition-colors">
-                      09039982165
+                      +234 9039982165
                     </span>
                     <p className="text-xs text-slate-500 mt-0.5">Direct line to our admissions desk</p>
                   </div>

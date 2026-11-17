@@ -115,7 +115,7 @@ const Footer = ({ onOpenApply, onOpenContact, onNavigate }) => {
               </li>
               <li className="flex items-start gap-3">
                 <Phone size={20} className="text-primary flex-shrink-0 mt-0.5" />
-                <span>09039982165</span>
+                <span>+234 9039982165</span>
               </li>
               <li className="flex items-start gap-3">
                 <MapPin size={20} className="text-primary flex-shrink-0 mt-0.5" />
