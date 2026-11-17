@@ -40,7 +40,7 @@ const TrialClassPage = ({ initialCourseId = '', onNavigate, onOpenApply }) => {
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
-    countryCode: '+234',
+    countryCode: 'Nigeria (+234)',
     phone: '',
     age: '',
     location: '',
@@ -332,7 +332,7 @@ const TrialClassPage = ({ initialCourseId = '', onNavigate, onOpenApply }) => {
                         setFormData({
                           fullName: '',
                           email: '',
-                          countryCode: '+234',
+                          countryCode: 'Nigeria (+234)',
                           phone: '',
                           age: '',
                           location: '',
@@ -454,11 +454,11 @@ const TrialClassPage = ({ initialCourseId = '', onNavigate, onOpenApply }) => {
                           name="countryCode"
                           value={formData.countryCode}
                           onChange={handleChange}
-                          className="bg-slate-50 border-r border-slate-200 px-3 py-3 text-xs font-bold text-slate-700 outline-none cursor-pointer"
+                          className="w-40 sm:w-44 bg-slate-50 border-r border-slate-200 px-3 py-3 text-xs font-bold text-slate-700 outline-none cursor-pointer shrink-0 truncate"
                         >
-                          {countryCodes.map((c) => (
-                            <option key={`${c.code}-${c.dial_code}`} value={c.dial_code}>
-                              {c.code} ({c.dial_code})
+                          {countryCodes.map((c, idx) => (
+                            <option key={`${c.country}-${c.code}-${idx}`} value={`${c.country} (${c.code})`}>
+                              {c.country} ({c.code})
                             </option>
                           ))}
                         </select>
