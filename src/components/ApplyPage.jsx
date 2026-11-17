@@ -22,7 +22,7 @@ import {
 import { countryCodes } from '../data/countryCodes';
 import { coursesData } from '../data/coursesData';
 import { youngCodersCourses } from '../data/youngCodersData';
-import { WEB3FORMS_ACCESS_KEY, WEB3FORMS_ENDPOINT } from '../config/forms';
+import { WEB3FORMS_ACCESS_KEY, WEB3FORMS_ENDPOINT, BANK_ACCOUNT_DETAILS } from '../config/forms';
 import { TURNSTILE_SITE_KEY, clean, validateContact, checkRateLimit, recordSubmission } from '../config/formSecurity';
 import TurnstileWidget from './TurnstileWidget';
 
@@ -58,6 +58,7 @@ const ApplyPage = ({ initialCourseId = '', onNavigate }) => {
     gender: '',
     course: initialCourseId || courses[0].id,
     learningMode: 'Online (Virtual Live)',
+    agreedToPayment: false,
     agreedToTerms: false
   });
 
@@ -117,6 +118,10 @@ const ApplyPage = ({ initialCourseId = '', onNavigate }) => {
       setError(validationError);
       return;
     }
+    if (!formData.agreedToPayment) {
+      setError(`Please confirm that you agree to pay the sum (${selectedCourseObj.price}) assigned to this course.`);
+      return;
+    }
     if (!formData.agreedToTerms) {
       setError('Please review and agree to the Student Agreement before proceeding.');
       return;
@@ -147,6 +152,7 @@ const ApplyPage = ({ initialCourseId = '', onNavigate }) => {
       submissionBody.append('Tuition Fee', selectedCourseObj.price);
       submissionBody.append('Duration', selectedCourseObj.duration);
       submissionBody.append('Learning Mode', formData.learningMode);
+      submissionBody.append('Payment Agreement', `Agreed to pay ${selectedCourseObj.price} for ${selectedCourseObj.title}`);
       submissionBody.append('Agreed to Terms', 'Yes');
       if (captchaToken) submissionBody.append('cf-turnstile-response', captchaToken);
 
@@ -241,7 +247,7 @@ const ApplyPage = ({ initialCourseId = '', onNavigate }) => {
             <div className="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-md relative overflow-hidden">
               <div className="absolute top-0 right-0 w-48 h-48 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
 
-              <div className="mb-8">
+              <div className="mb-6">
                 <span className="text-xs font-bold uppercase tracking-wider text-primary block mb-1">
                   Admissions Application
                 </span>
@@ -251,6 +257,28 @@ const ApplyPage = ({ initialCourseId = '', onNavigate }) => {
                 <p className="text-xs sm:text-sm text-slate-600 mt-1">
                   Please provide accurate contact details so our admissions committee can reach you with cohort schedules and onboarding resources.
                 </p>
+              </div>
+
+              {/* Top Official Bank Account Details Banner */}
+              <div className="mb-6 p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-amber-50 via-orange-50/60 to-amber-50 border border-amber-200 shadow-2xs">
+                <div className="flex items-center gap-2 text-amber-900 text-xs font-extrabold uppercase tracking-wider mb-2.5">
+                  <CreditCard size={16} className="text-amber-600" />
+                  <span>Official Tuition Account Details</span>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 bg-white/90 p-3.5 rounded-xl border border-amber-200/80 text-xs">
+                  <div>
+                    <span className="text-slate-500 font-bold block">Account Name:</span>
+                    <span className="font-extrabold text-slate-900 text-xs sm:text-sm">{BANK_ACCOUNT_DETAILS.accountName}</span>
+                  </div>
+                  <div>
+                    <span className="text-slate-500 font-bold block">Bank Name:</span>
+                    <span className="font-extrabold text-slate-900 text-xs sm:text-sm">{BANK_ACCOUNT_DETAILS.bankName}</span>
+                  </div>
+                  <div>
+                    <span className="text-slate-500 font-bold block">Account Number:</span>
+                    <span className="font-bold text-amber-700 text-xs sm:text-sm">{BANK_ACCOUNT_DETAILS.accountNumber}</span>
+                  </div>
+                </div>
               </div>
 
               {isSubmitted ? (
@@ -286,6 +314,23 @@ const ApplyPage = ({ initialCourseId = '', onNavigate }) => {
                       <span className="text-slate-500 font-semibold">Tuition:</span>
                       <span className="font-extrabold text-primary text-sm">{selectedCourseObj.price}</span>
                     </div>
+                    <div className="pt-3 mt-2 border-t border-slate-200 space-y-1 text-xs">
+                      <span className="font-extrabold text-slate-800 uppercase tracking-wider block text-[11px]">
+                        Official Bank Account Details
+                      </span>
+                      <div className="flex justify-between">
+                        <span className="text-slate-500 font-semibold">Account Name:</span>
+                        <span className="font-bold text-slate-900">{BANK_ACCOUNT_DETAILS.accountName}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-slate-500 font-semibold">Bank Name:</span>
+                        <span className="font-bold text-slate-900">{BANK_ACCOUNT_DETAILS.bankName}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-slate-500 font-semibold">Account Number:</span>
+                        <span className="font-bold text-amber-700">{BANK_ACCOUNT_DETAILS.accountNumber}</span>
+                      </div>
+                    </div>
                   </div>
 
                   <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
@@ -310,6 +355,7 @@ const ApplyPage = ({ initialCourseId = '', onNavigate }) => {
                           gender: '',
                           course: courses[0].id,
                           learningMode: 'Online (Virtual Live)',
+                          agreedToPayment: false,
                           agreedToTerms: false
                         });
                       }}
@@ -489,6 +535,26 @@ const ApplyPage = ({ initialCourseId = '', onNavigate }) => {
                         </select>
                       </div>
                     </div>
+                  </div>
+
+                  {/* Tuition Payment Agreement Checkbox */}
+                  <div className="p-4 bg-amber-50/70 border border-amber-200 rounded-2xl">
+                    <label className="flex items-start gap-3 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        name="agreedToPayment"
+                        checked={formData.agreedToPayment}
+                        onChange={handleChange}
+                        required
+                        className="mt-1 h-4 w-4 rounded text-primary focus:ring-primary border-slate-300 cursor-pointer"
+                      />
+                      <span className="text-xs sm:text-sm text-slate-800 font-semibold leading-relaxed">
+                        By this application, I agree to pay the sum of{' '}
+                        <strong className="text-primary font-black">{selectedCourseObj.price}</strong> assigned to{' '}
+                        <strong className="text-slate-900">{selectedCourseObj.title}</strong>.{' '}
+                        <span className="text-red-500">*</span>
+                      </span>
+                    </label>
                   </div>
 
                   {/* Student Terms Agreement */}

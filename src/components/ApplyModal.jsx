@@ -4,7 +4,7 @@ import { X, CheckCircle2, FileText, AlertCircle, Sparkles, Loader2 } from 'lucid
 import { countryCodes } from '../data/countryCodes';
 import { coursesData } from '../data/coursesData';
 import { youngCodersCourses } from '../data/youngCodersData';
-import { WEB3FORMS_ACCESS_KEY, WEB3FORMS_ENDPOINT } from '../config/forms';
+import { WEB3FORMS_ACCESS_KEY, WEB3FORMS_ENDPOINT, BANK_ACCOUNT_DETAILS } from '../config/forms';
 import { TURNSTILE_SITE_KEY, LIMITS, clean, validateContact, checkRateLimit, recordSubmission } from '../config/formSecurity';
 import TurnstileWidget from './TurnstileWidget';
 
@@ -38,6 +38,7 @@ const ApplyModal = ({ isOpen, onClose, defaultCourse = '' }) => {
     gender: '',
     course: defaultCourse || courses[0].id,
     learningMode: 'Online (Virtual Live)',
+    agreedToPayment: false,
     agreedToTerms: false
   });
 
@@ -96,6 +97,10 @@ const ApplyModal = ({ isOpen, onClose, defaultCourse = '' }) => {
     const validationError = validateContact(data);
     if (validationError) {
       setError(validationError);
+      return;
+    }
+    if (!formData.agreedToPayment) {
+      setError(`Please confirm that you agree to pay the sum (${selectedCourseObj.price}) assigned to this course.`);
       return;
     }
     if (!formData.agreedToTerms) {
@@ -390,6 +395,34 @@ const ApplyModal = ({ isOpen, onClose, defaultCourse = '' }) => {
                   <span className="text-xs px-3 py-1 bg-white border border-blue-200 text-slate-700 rounded-full font-semibold shadow-xs">
                     {selectedCourseObj.duration}
                   </span>
+                </div>
+
+                {/* Official Bank Account Details & Payment Agreement */}
+                <div className="p-4 bg-amber-50/70 border border-amber-200 rounded-2xl space-y-3">
+                  <div className="text-xs space-y-1 bg-white p-3 rounded-xl border border-amber-200/80">
+                    <p className="font-extrabold text-amber-900 uppercase tracking-wider text-[11px] mb-1">
+                      Official Account Details
+                    </p>
+                    <p><strong className="text-slate-600">Account Name:</strong> <span className="font-bold text-slate-900">{BANK_ACCOUNT_DETAILS.accountName}</span></p>
+                    <p><strong className="text-slate-600">Bank Name:</strong> <span className="font-bold text-slate-900">{BANK_ACCOUNT_DETAILS.bankName}</span></p>
+                    <p><strong className="text-slate-600">Account Number:</strong> <span className="font-bold text-amber-700">{BANK_ACCOUNT_DETAILS.accountNumber}</span></p>
+                  </div>
+
+                  <label className="flex items-start gap-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      name="agreedToPayment"
+                      checked={formData.agreedToPayment}
+                      onChange={handleChange}
+                      required
+                      className="mt-1 w-4 h-4 text-primary rounded border-slate-300 focus:ring-primary cursor-pointer"
+                    />
+                    <span className="text-xs text-slate-800 font-semibold leading-relaxed">
+                      By this application, I agree to pay the sum of{' '}
+                      <strong className="text-primary font-black">{selectedCourseObj.price}</strong> assigned to{' '}
+                      <strong>{selectedCourseObj.name}</strong>. <span className="text-red-500">*</span>
+                    </span>
+                  </label>
                 </div>
 
                 {/* Agreement and Terms Link */}
